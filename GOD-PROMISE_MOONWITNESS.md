@@ -1,7 +1,9 @@
 # GOD-PROMISE MOONWITNESS
+
 ### *A Monocentric 1·6·3 Framework for One God, Creation, Boundary, Revelation, and Human Accountability*
 
-**Research Paper — Conceptual Framework Draft v1.0**  
+**Document Type:** Research Paper — Conceptual Framework  
+**Status:** Draft v1.1  
 **Domain:** MoonWitness · Monocentric Ontology · Revelation Corpus  
 **Primary Frame:** Qur'an-grounded conceptual research  
 **Architecture:** **1 · 6 · 3**  
@@ -13,17 +15,15 @@
 
 **GOD-PROMISE MOONWITNESS** proposes a compact research architecture for studying revelation, creation, human traditions, boundaries of knowledge and action, and accountability without collapsing those layers into a single theological judgment.
 
-The framework is called **Monocentric 1·6·3**.
+The framework is called **Monocentric 1·6·3**:
 
-**1** represents **ONE GOD**, grounded in the Qur'anic declaration of divine oneness: *“Allah, Aḥad”* in Q112:1.
+- **1 — ONE GOD** represents the single theological center, grounded in the Qur'anic declaration of divine oneness: *Allah, Aḥad* in Q112:1.
+- **6 — CREATION** is anchored in the Qur'anic description of the heavens and earth being created in **six ayyām**, including Q7:54, Q10:3, Q11:7, Q25:59, Q32:4, Q50:38, and Q57:4.
+- **3 — HIZAB** is the MoonWitness name for a three-part boundary architecture built from three Qur'anic concepts: **Hijab** as separation or veil, **Hudud** as limits, and **Barzakh** as partition between domains.
 
-**6** represents **CREATION**, because the Qur'an repeatedly associates the creation of the heavens and earth with **six ayyām**. This formula occurs in Q7:54, Q10:3, Q11:7, Q25:59, Q32:4, Q50:38, and Q57:4.
+The Qur'an does **not** state that `3 = HIZAB`, nor does this framework claim that the Qur'an contains a hidden numerical code called `1·6·3`. Rather, **1·6·3 is a research compression system built from explicit textual anchors and clearly identified framework-level abstractions**.
 
-**3** represents **HIZAB**, the name used by this research framework for a three-part boundary architecture derived from three Qur'anic concepts: **Hijab** as separation or veil, **Hudud** as limits that must not be transgressed, and **Barzakh** as partition between domains. The Qur'an itself does **not** state “3 = Hizab”; that numerical arrangement belongs to the MoonWitness ontology.
-
-The central thesis is therefore not that the Qur'an contains a hidden numerical code called 1·6·3. Rather, **1·6·3 is a research compression system** constructed from explicit Qur'anic anchors.
-
-The framework subsequently positions **MoonWitness** as an observational corpus: revelation claims, textual witnesses, manuscripts, canons, traditions, branches, interpretations, human contexts, actions, and their evidentiary relations are recorded without automatically turning corpus comparison into final judgment.
+MoonWitness is therefore positioned as an observational and evidentiary corpus. Revelation claims, textual witnesses, manuscripts, canons, traditions, branches, interpretations, human contexts, actions, and their relationships can be recorded and compared without turning research classification into final divine judgment.
 
 ---
 
@@ -31,23 +31,23 @@ The framework subsequently positions **MoonWitness** as an observational corpus:
 
 Human religious history contains multiple layers that are often treated as if they were identical:
 
-**God**, revelation, scripture, manuscript, canon, translation, religion, tradition, denomination, school, interpretation, culture, individual belief, and individual action.
+**God, revelation, scripture, manuscript, canon, translation, religion, tradition, denomination, school, interpretation, culture, individual belief, and individual action.**
 
 They are not identical objects.
 
-A revelation identity may precede the later tradition that claims relation to it. A surviving textual corpus may be related to a revelation claim without being methodologically identical to that revelation. A branch may interpret its canon differently from another branch of the same tradition.
+A revelation identity may precede a later tradition that claims a relationship to it. A surviving textual corpus may be related to a revelation claim without being methodologically identical to that revelation. One branch may interpret its canon differently from another branch within the same tradition.
 
-The MoonWitness research chain therefore uses:
+MoonWitness therefore distinguishes the following research chain:
 
 > **ULTIMATE REALITY / GOD → REVELATION CLAIM → REVELATION IDENTITY → TEXTUAL WITNESS → MANUSCRIPT / RECENSION → CANON → BOOK / COLLECTION → EDITION → TRANSLATION → TRADITION → BRANCH → DENOMINATION → SCHOOL → SECT / COMMUNITY → COMMENTARY → INTERPRETATION**
 
-This paper places that entire corpus inside a more fundamental ontology:
+This paper places that corpus inside a more fundamental ontology:
 
 > **1 — ONE GOD**  
 > **6 — CREATION**  
 > **3 — HIZAB**
 
-or:
+Or, in its simplest conceptual form:
 
 > **CENTER → CREATED DOMAIN → BOUNDARY**
 
@@ -55,21 +55,21 @@ or:
 
 # 2. Why “GOD-PROMISE”?
 
-The title **GOD-PROMISE** is not used here to claim a private or newly revealed promise.
+The title **GOD-PROMISE** is not used to claim a private, secret, or newly revealed promise.
 
 It refers to a Qur'anic theological motif: **the promise of God is true**.
 
-Immediately after Q10:3 describes Allah as the One who created the heavens and earth in six ayyām, Q10:4 states that humanity returns to Him and describes this as **the promise of Allah that is true**.
+Q10:3 describes Allah as the One who created the heavens and earth in six ayyām. Q10:4 then states that humanity returns to Him and describes this return in relation to **the true promise of Allah**.
 
-This produces an important conceptual sequence:
+This produces a central conceptual sequence:
 
 > **CREATION → LIFE → RETURN → ACCOUNTABILITY**
 
-Therefore “God-Promise” functions in this paper as an **eschatological research horizon**: creation is not treated merely as physical existence, but as existence in which action, responsibility, return, and judgment matter.
+Within this paper, **GOD-PROMISE** therefore functions as an **eschatological research horizon**. Creation is not treated merely as physical existence, but as an arena in which action, responsibility, return, and judgment matter.
 
 MoonWitness does not claim to execute that judgment.
 
-It studies the evidence preceding it.
+It studies and records the evidence that precedes it.
 
 ---
 
@@ -77,7 +77,7 @@ It studies the evidence preceding it.
 
 **MoonWitness** is an epistemic metaphor.
 
-Different human beings may occupy different:
+Human beings may occupy different:
 
 - eras,
 - languages,
@@ -88,33 +88,30 @@ Different human beings may occupy different:
 - information environments,
 - and levels of access to religious knowledge.
 
-Their **perspective can differ while the object being investigated remains the same**.
+Their perspectives can differ even when the object under investigation remains the same.
 
 MoonWitness therefore separates:
 
 > **OBJECT ≠ OBSERVER ≠ WITNESS ≠ INTERPRETATION**
 
-A textual witness is not automatically revelation.
+A textual witness is not automatically revelation.  
+A tradition is not automatically identical to its founding revelation.  
+An interpretation is not automatically identical to its source text.  
+A research classification is not automatically divine judgment.
 
-A tradition is not automatically its founding revelation.
-
-An interpretation is not automatically its source text.
-
-And a research classification is not automatically divine judgment.
+This separation is fundamental to the entire framework.
 
 ---
 
 # 4. The Monocentric Principle
 
-The term **MONOCENTRIC** means that the ontology possesses **one ultimate theological center**.
+The term **MONOCENTRIC** means that the ontology has **one ultimate theological center**.
 
-In MoonWitness:
+Within MoonWitness:
 
-> **01 — ONE GOD**
+> **1 — ONE GOD**
 
-is not one entity among several equivalent supreme entities inside the graph.
-
-It is the root theological proposition of the framework.
+is not modeled as one supreme entity among several equivalent supreme entities. It is the root theological proposition of the framework.
 
 Q112:1 provides its most compact textual anchor:
 
@@ -137,13 +134,13 @@ ONE GOD
             └── CREATION
 ```
 
-This is the fundamental relation from which the remainder of the system is modeled.
+This is the foundational relationship from which the rest of the ontology is modeled.
 
 ---
 
 # 5. FOUNDATION 1 — ONE GOD
 
-## 5.1 Ontological role
+## 5.1 Ontological Role
 
 **Code:** `1`  
 **Label:** `ONE GOD`
@@ -155,15 +152,15 @@ Core functions:
 - **CREATOR**
 - **ULTIMATE AUTHORITY**
 
-The numerical value **1** here is a framework representation of the Qur'anic proposition of divine oneness, not a claim of Qur'anic numerology.
+The numerical value `1` is a framework representation of the Qur'anic proposition of divine oneness. It is **not** presented as Qur'anic numerology.
 
-### Primary anchor
+### Primary Anchor
 
 **Q112:1**
 
 > **Allah — Aḥad.**
 
-### Creator relation
+### Creator Relation
 
 **Q39:62**
 
@@ -177,11 +174,11 @@ Therefore:
 
 # 6. FOUNDATION 6 — CREATION
 
-## 6.1 Why the number six?
+## 6.1 Why the Number Six?
 
-Unlike `3 = HIZAB`, the connection between **six and Creation has an explicit textual basis**.
+Unlike `3 = HIZAB`, the connection between **six** and **Creation** has an explicit textual basis.
 
-The phrase describing creation in **six ayyām** appears repeatedly in the Qur'an:
+The Qur'an repeatedly describes the creation of the heavens and earth in **six ayyām**:
 
 | Verse | Creation statement |
 |---|---|
@@ -193,22 +190,22 @@ The phrase describing creation in **six ayyām** appears repeatedly in the Qur'a
 | **Q50:38** | heavens + earth + what is between → six ayyām |
 | **Q57:4** | heavens + earth → six ayyām |
 
-Therefore MoonWitness assigns:
+MoonWitness therefore uses:
 
 > **6 — CREATION**
 
-with the important qualification:
+with an essential methodological distinction:
 
-> **six = explicit textual creation anchor**  
-> **the internal six-domain taxonomy below = MoonWitness research design**
+> **Six as a creation anchor = explicit textual basis.**  
+> **The six analytical domains below = MoonWitness research design.**
 
-They must never be confused.
+These two levels must not be confused.
 
 ---
 
 # 7. The Six Creation Domains
 
-For operational research, MoonWitness compresses Creation into **six major analytical domains**.
+For operational research, MoonWitness organizes Creation into **six major analytical domains**.
 
 ## 7.1 COSMOS
 
@@ -228,7 +225,7 @@ Includes:
 
 **night · day · sun · moon · orbit · cycles**
 
-This category studies created periodicity and ordered celestial relations.
+This domain studies created periodicity, celestial order, and recurring cosmic relations.
 
 Anchor example:
 
@@ -242,10 +239,10 @@ Includes:
 
 **water · clay · material formation · physical structure**
 
-It asks:
+Research questions include:
 
 > *What is something formed from?*  
-> *By what process does form emerge?*
+> *Through what process does form emerge?*
 
 Anchor examples:
 
@@ -259,7 +256,7 @@ Includes:
 
 **living organisms · animals · biological processes · reproduction**
 
-This separates living created systems from matter considered merely as material substrate.
+This domain separates living created systems from matter considered only as material substrate.
 
 Anchor examples:
 
@@ -273,7 +270,7 @@ Includes:
 
 **human formation · perception · intention · decision · action · responsibility**
 
-This domain is central to MoonWitness because corpus and revelation become ethically relevant through human reception and action.
+This domain is central to MoonWitness because revelation and corpus data become ethically relevant through human reception, interpretation, choice, and action.
 
 Anchor examples:
 
@@ -283,7 +280,7 @@ Anchor examples:
 
 ## 7.6 UNSEEN CREATION
 
-Includes created entities described within revelation but not ordinarily accessible through empirical human observation, such as the Qur'anic category of **jinn**.
+Includes created entities described in revelation but not ordinarily accessible through empirical human observation, including the Qur'anic category of **jinn**.
 
 Anchor example:
 
@@ -293,7 +290,7 @@ The distinction is:
 
 > **CREATOR ≠ SEEN CREATION ≠ UNSEEN CREATION**
 
-All remain under `CREATION`, not under `ONE GOD`.
+Both seen and unseen created domains remain under **CREATION**, not under **ONE GOD**.
 
 ---
 
@@ -305,20 +302,15 @@ All remain under `CREATION`, not under `ONE GOD`.
 **Framework Label:** `HIZAB`  
 **Function:** `BOUNDARY SYSTEM`
 
-Important methodological statement:
+> **HIZAB is the MoonWitness umbrella term for the framework's boundary architecture.**
 
-> **“HIZAB” is the MoonWitness umbrella term.**
+It is constructed from three Qur'anic concepts:
 
-The Qur'anic terms underlying it are:
-
-### `HIJAB`
-separation / veil
-
-### `HUDUD`
-limits
-
-### `BARZAKH`
-partition
+| Component | Core function |
+|---|---|
+| **HIJAB** | separation / veil |
+| **HUDUD** | limits / boundaries |
+| **BARZAKH** | partition / domain separator |
 
 Thus:
 
@@ -330,11 +322,11 @@ Thus:
 └── BARZAKH
 ```
 
-The Qur'an itself does **not** define these three words as one formal taxonomy. Their grouping is an analytical construction of this paper.
+The Qur'an does **not** define these three terms as one formal taxonomy. Their grouping under **HIZAB** is a MoonWitness analytical construction.
 
 ---
 
-# 9. 3.1 HIJAB — Separation
+## 8.2 HIJAB — Separation
 
 Q7:46 explicitly states:
 
@@ -342,17 +334,17 @@ Q7:46 explicitly states:
 >
 > there is a **ḥijāb**, a barrier, between them.
 
-Q42:51 also uses **ḥijāb** in the expression concerning communication “from behind a veil.”
+Q42:51 also uses **ḥijāb** in the context of communication “from behind a veil.”
 
 MoonWitness therefore abstracts:
 
 > **HIJAB → SEPARATION / ACCESS BOUNDARY**
 
-The term “access boundary” is an ontology interpretation, not a literal Qur'anic definition.
+The phrase **access boundary** is an ontology interpretation, not a literal Qur'anic definition.
 
 ---
 
-# 10. 3.2 HUDUD — Limits
+## 8.3 HUDUD — Limits
 
 Q2:229 contains the expression:
 
@@ -360,19 +352,18 @@ Q2:229 contains the expression:
 >
 > the limits of Allah,
 
-followed by the prohibition against transgressing those limits.
+followed by a prohibition against transgressing those limits.
 
-Therefore:
+MoonWitness therefore models:
 
-> **HUDUD → LIMIT**
->
+> **HUDUD → LIMIT**  
 > **inside / boundary / crossing**
 
-This is stronger for normative limits than using *hijab* alone.
+For normative limits, **Hudud** is therefore more precise than using *Hijab* alone.
 
 ---
 
-# 11. 3.3 BARZAKH — Partition
+## 8.4 BARZAKH — Partition
 
 Q55:19–20 describes two bodies of water meeting while a **barzakh** exists between them that they do not overrun.
 
@@ -394,13 +385,13 @@ HIZAB
 
 ---
 
-# 12. The Complete 1·6·3 Model
+# 9. The Complete 1·6·3 Model
 
-The ontology is best understood **concentrically**, rather than as three unrelated numbers.
+The ontology is best understood **concentrically**, not as three unrelated numbers.
 
 ```text
 ┌───────────────────────────────────────┐
-│              3 — HIZAB                │
+│              3 — HIZAB               │
 │                                       │
 │   HIJAB · HUDUD · BARZAKH             │
 │                                       │
@@ -432,45 +423,45 @@ This is the meaning of **MONOCENTRIC 1·6·3**.
 
 ---
 
-# 13. MoonWitness as Corpus Layer
+# 10. MoonWitness as the Corpus Layer
 
-The 1·6·3 ontology alone does not answer historical questions such as:
+The 1·6·3 ontology alone does not answer historical and textual questions such as:
 
 - Which text belongs to which tradition?
 - Which manuscript witnesses which textual form?
 - Which community recognizes which canon?
 - Which translation derives from which edition?
 - Which theological claim is made by whom?
-- Which interpretation appeared at which historical period?
+- Which interpretation appeared in which historical period?
 
-These belong to **MoonWitness Corpus**.
+These questions belong to the **MoonWitness Corpus**.
 
-The corpus architecture therefore maintains this distinction:
+The corpus architecture therefore preserves a critical distinction:
 
-> revelation does not originate from tradition inside the MoonWitness model; tradition is a human system that may preserve, receive, interpret, reject, transmit, or develop claims about revelation.
+> **Revelation does not originate from tradition inside the MoonWitness model. Tradition is a human system that may preserve, receive, interpret, reject, transmit, or develop claims about revelation.**
 
 ---
 
-# 14. The Four Core Revelation Identities
+# 11. The Four Core Revelation Identities
 
-MoonWitness may retain four Qur'an-referenced revelation identities as a **core research frame**:
+MoonWitness retains four Qur'an-referenced revelation identities as a **core research frame**:
 
 > **QUR'AN**  
 > **TAURAT**  
 > **ZABUR**  
 > **INJIL**
 
-However, this paper makes a critical distinction.
+A critical distinction must remain explicit:
 
-### Revelation Identity ≠ Existing Canon
+> **REVELATION IDENTITY ≠ EXISTING CANON**
 
 The framework does not automatically equate:
 
-- **INJIL** with the present New Testament or canonical Gospels;
+- **INJIL** with the entire present New Testament or the canonical Gospels;
 - **TAURAT** with the entire Hebrew Bible;
 - **ZABUR** with the complete present Psalms corpus.
 
-Those relationships must instead be modeled as **research mappings**.
+Those relationships must be modeled as research mappings rather than assumed identities.
 
 For example:
 
@@ -486,17 +477,17 @@ EVIDENCE
 CONFIDENCE / STATUS
 ```
 
-That distinction is essential if GOD-PROMISE MOONWITNESS is intended to function as research rather than apologetic assertion.
+This distinction is essential if GOD-PROMISE MOONWITNESS is to function as a research framework rather than as an apologetic assertion engine.
 
 ---
 
-# 15. Tradition Is Not Revelation
+# 12. Tradition Is Not Revelation
 
 A second critical principle follows:
 
 > **TRADITION ≠ REVELATION**
 
-A tradition can contain:
+A tradition may contain:
 
 - texts,
 - rituals,
@@ -506,11 +497,11 @@ A tradition can contain:
 - philosophical systems,
 - legal systems,
 - cultural practices,
-- competing interpretations.
+- and competing interpretations.
 
-Therefore one tradition may contain multiple branches and multiple incompatible interpretations.
+A single tradition may therefore contain multiple branches and mutually incompatible interpretations.
 
-MoonWitness should consequently describe traditions without automatically declaring them:
+MoonWitness should describe those relationships without automatically declaring a tradition or individual:
 
 **true**, **false**, **saved**, or **condemned**.
 
@@ -518,21 +509,19 @@ Those are not corpus fields.
 
 ---
 
-# 16. Replacing PASSED / NOT PASSED
+# 13. Replacing PASSED / NOT PASSED
 
-The original MoonWitness poster used:
+An earlier MoonWitness poster used:
 
 > **PASSED / NOT PASSED**
 
-This works visually but is too ambiguous for research.
-
-A reader could interpret:
+That language may work visually, but it is too ambiguous for research use. A reader could interpret:
 
 > **NOT PASSED = false religion**
 
-even if that was never the intended meaning.
+although that is not necessarily the intended meaning.
 
-A safer model is:
+For corpus classification, MoonWitness should instead use evidence-oriented statuses such as:
 
 ```text
 DIRECT_CORE
@@ -544,19 +533,19 @@ DISPUTED
 INSUFFICIENT_EVIDENCE
 ```
 
-This makes MoonWitness an **evidence ledger**, rather than a machine for declaring salvation status.
+This keeps MoonWitness functioning as an **evidence ledger**, not as a machine for declaring salvation status.
 
 ---
 
-# 17. HIZAB and Human Context
+# 14. HIZAB and Human Context
 
-The role of HIZAB becomes particularly important at the individual human level.
+The role of **HIZAB** becomes especially important at the individual human level.
 
-Two people may not possess identical:
+Two people may not have identical:
 
-**information**, **language**, **access**, **education**, **capacity**, **environment**, **historical context**, or **opportunity**.
+**information, language, access, education, capacity, environment, historical context, or opportunity.**
 
-Thus MoonWitness cannot responsibly jump from:
+MoonWitness therefore cannot responsibly jump from:
 
 > “Person X belongs to Tradition Y”
 
@@ -564,21 +553,21 @@ directly to:
 
 > “Therefore Person X has Responsibility Z.”
 
-There are intermediate variables.
+Intermediate variables must be examined.
 
 The research sequence becomes:
 
 > **RECEIVED → UNDERSTOOD → INTENDED → CHOSEN → ACTED → IMPACT → ACCOUNTABILITY → JUDGMENT**
 
-This becomes one of the strongest components of GOD-PROMISE MOONWITNESS.
+MoonWitness records and analyzes the chain leading toward accountability while preserving the distinction between research inference and final judgment.
 
 ---
 
-# 18. HIZAB → MIZAN → LEDGER
+# 15. HIZAB → MIZAN → LEDGER
 
-The three terms must not be merged.
+These three concepts must remain distinct.
 
-## HIZAB
+## 15.1 HIZAB
 
 asks:
 
@@ -586,13 +575,13 @@ asks:
 > **What was accessible?**  
 > **What was possible?**
 
-## MIZAN
+## 15.2 MIZAN
 
 asks:
 
-> **How should the evidence be weighed?**
+> **How should the relevant evidence and factors be weighed?**
 
-## LEDGER
+## 15.3 LEDGER
 
 asks:
 
@@ -612,35 +601,38 @@ within / beyond boundary
 
 MIZAN
    ↓
-weigh the relevant factors
+weigh relevant evidence and factors
 
    ↓
 
 LEDGER
    ↓
-record evidence
+record evidence and provenance
 
    ↓
 
-JUDGMENT
+ACCOUNTABILITY
+   ↓
+
+FINAL JUDGMENT
 ```
 
-But MoonWitness stops before claiming divine judgment.
+MoonWitness may investigate the evidence chain, but it stops before claiming divine judgment.
 
 ---
 
-# 19. The Final Episode
+# 16. The Final Episode
 
-The MoonWitness architecture eventually leads toward:
+The MoonWitness architecture ultimately points toward questions of:
 
 > **JUDGMENT**  
 > **TRUTH**  
 > **RESPONSIBILITY**  
 > **DESTINY**
 
-The research paper retains these as **final questions**, not computed answers.
+These remain **final questions**, not computed answers.
 
-Before asking “What will happen to this person?”, MoonWitness asks:
+Before asking, “What will happen to this person?”, MoonWitness asks:
 
 > **What reached them?**  
 > **What could they reasonably understand?**  
@@ -649,62 +641,63 @@ Before asking “What will happen to this person?”, MoonWitness asks:
 > **What did they actually do?**  
 > **What consequences followed?**
 
-The architecture becomes:
+The resulting architecture is:
 
-> **ONE GOD → REVELATION → TEXTUAL WITNESSES → HUMAN TRADITIONS → HUMAN CONTEXTS → HIZAB → MIZAN → LEDGER → FINAL JUDGMENT**
+> **ONE GOD → REVELATION → TEXTUAL WITNESSES → HUMAN TRADITIONS → HUMAN CONTEXTS → HIZAB → MIZAN → LEDGER → ACCOUNTABILITY → FINAL JUDGMENT**
 
 ---
 
-# 20. Evidence Classification
+# 17. Evidence Classification
 
-Every MoonWitness statement should receive an epistemic label.
+Every meaningful MoonWitness statement should receive an epistemic label.
 
 | Status | Meaning |
 |---|---|
 | **EXPLICIT** | Directly stated by the primary text |
 | **DERIVED** | Logically derived from explicit source relations |
-| **HISTORICAL** | Supported by historical/textual evidence |
-| **CLAIMED** | Claimed by a tradition/source but not independently verified |
-| **INTERPRETIVE** | An interpretation of evidence |
+| **HISTORICAL** | Supported by historical or textual evidence |
+| **CLAIMED** | Claimed by a tradition or source but not independently verified |
+| **INTERPRETIVE** | An interpretation of available evidence |
 | **FRAMEWORK** | Defined by MoonWitness for analytical purposes |
-| **UNKNOWN** | Evidence currently insufficient |
+| **UNKNOWN** | Evidence is currently insufficient |
 
-Applied to 1·6·3:
+Applied to the 1·6·3 framework:
 
 | Proposition | Status |
 |---|---|
 | Allah is Aḥad | **EXPLICIT** |
 | Allah is Creator of all things | **EXPLICIT** |
-| Creation of heavens/earth associated with six ayyām | **EXPLICIT** |
+| Creation of the heavens and earth is associated with six ayyām | **EXPLICIT** |
 | `6 = CREATION` as framework shorthand | **FRAMEWORK grounded in explicit anchor** |
-| Hijab is a barrier/veil concept | **EXPLICIT** |
+| Hijab is a barrier / veil concept | **EXPLICIT** |
 | Hudud describes limits | **EXPLICIT** |
 | Barzakh describes partition | **EXPLICIT** |
-| Hijab + Hudud + Barzakh = one category called HIZAB | **FRAMEWORK** |
+| Hijab + Hudud + Barzakh are grouped under HIZAB | **FRAMEWORK** |
 | `3 = HIZAB` | **FRAMEWORK** |
 
-This table is central to protecting the project from accidental numerology.
+This classification is central to protecting the project from accidental numerology and from confusing textual statements with framework-level abstractions.
 
 ---
 
-# 21. What 1·6·3 Does **Not** Claim
+# 18. What 1·6·3 Does **Not** Claim
 
 GOD-PROMISE MOONWITNESS does **not** claim that:
 
 - the Qur'an explicitly teaches a hidden code called `1·6·3`;
-- every use of the numbers one, six, or three in scripture must refer to this ontology;
+- every appearance of the numbers one, six, or three in scripture refers to this ontology;
 - all surviving religious texts are automatically identical to the revelations with which traditions associate them;
-- a corpus engine can determine divine salvation or condemnation.
+- a corpus engine can determine divine salvation or condemnation;
+- a framework-defined relationship has the same epistemic status as an explicit textual statement.
 
 The model is a **research ontology**.
 
-Its function is to organize evidence.
+Its function is to organize evidence, preserve provenance, expose relationships, and make uncertainty visible.
 
 ---
 
-# 22. Core Research Formula
+# 19. Core Research Formula
 
-The complete MoonWitness architecture can now be compressed into:
+The complete MoonWitness architecture can be compressed into:
 
 ```text
 1 — ONE GOD
@@ -753,41 +746,39 @@ ACCOUNTABILITY
 FINAL EPISODE
 ```
 
-But because the ontology is **monocentric**, its visual representation should ultimately show `1` at the center, Creation surrounding it as the created domain, and boundary structures operating throughout Creation.
+Because the ontology is **monocentric**, its preferred visual representation should place `1` at the center, Creation as the created field surrounding it, and boundary structures operating throughout the created domain.
 
 ---
 
-# 23. The Central Research Question
+# 20. The Central Research Questions
 
 MoonWitness begins with:
 
 > **WHAT IS TRUE?**
 
-but research alone cannot stop there.
-
-It must also ask:
+Research cannot stop there. It must also ask:
 
 > **WHAT TRUTH REACHED YOU?**
 
-and:
+Then:
 
 > **WHAT WERE YOU CAPABLE OF KNOWING?**
 
-followed by:
+And:
 
 > **WHAT DID YOU DO WITH WHAT YOU KNEW?**
 
-Only afterward does the theological question emerge:
+Only afterward does the final theological question emerge:
 
 > **WHAT WILL GOD JUDGE?**
 
-MoonWitness documents the preceding chain.
+MoonWitness documents and evaluates the preceding evidentiary chain.
 
-It does not claim God's seat of judgment.
+It does not claim authority over God's final judgment.
 
 ---
 
-# 24. Conclusion
+# 21. Conclusion
 
 **GOD-PROMISE MOONWITNESS** proposes an ontology that is intentionally minimal at its foundation:
 
@@ -797,7 +788,7 @@ It does not claim God's seat of judgment.
 
 `1` establishes the single theological center.
 
-`6` is connected to Creation through a recurring Qur'anic textual pattern: creation of the heavens and earth in six ayyām.
+`6` is connected to Creation through a recurring Qur'anic textual pattern: the creation of the heavens and earth in six ayyām.
 
 `3` is a MoonWitness taxonomy that organizes three Qur'anic boundary concepts:
 
@@ -805,15 +796,13 @@ It does not claim God's seat of judgment.
 > **HUDUD — limits**  
 > **BARZAKH — partition**
 
-The resulting system is therefore neither arbitrary numerology nor a replacement for tafsir.
+The resulting system is neither presented as Qur'anic numerology nor as a replacement for tafsir.
 
-It is a **Qur'an-grounded research ontology**.
-
-Its central discipline is:
+It is a **Qur'an-grounded research ontology** whose central discipline is:
 
 > **TEXT ≠ CLAIM ≠ INTERPRETATION ≠ FRAMEWORK ≠ JUDGMENT**
 
-And its central architecture is:
+Its core architecture can be summarized as:
 
 > **ONE GOD.**  
 > **ALL CREATION.**  
@@ -828,9 +817,9 @@ And its central architecture is:
 > **The Qur'an supplies the conceptual anchors.**  
 > **1·6·3 supplies the research architecture.**  
 > **MoonWitness supplies the evidence ledger.**  
-> **Mizan weighs evidence.**  
+> **Mizan weighs the relevant evidence and factors.**  
 > **Final Judgment remains with God.**
 
-**GOD-PROMISE MOONWITNESS** therefore becomes not a project for deciding *which human label wins*, but a framework for asking a more difficult question:
+**GOD-PROMISE MOONWITNESS** therefore becomes not a project for deciding *which human label wins*, but a framework for investigating a more difficult question:
 
 > **WHAT DID EACH HUMAN RECEIVE, UNDERSTAND, CHOOSE, AND DO WITH THE TRUTH AVAILABLE TO THEM?**
