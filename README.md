@@ -20,23 +20,19 @@ Operational ontology for L0–L6, active role vs stable identity, Mission #1 / M
 
 - `mizan-governance-th.v1.json` — canonical base contract
 - `mizan-governance-th.v1.1.json` — FAMILY/KINSHIP + NASIHAH/CORRECTIVE extension
+- `mizan-analytical-factors.v1.2.json` — evidence/provenance + analytical factor/ARI extension
 - `mizan-governance-th.fixtures.v1.json` — governance/TH baseline fixtures
 - `mizan-governance-th.fixtures.v1.1.json` — family/nasihah extension fixtures
-- `mizan-engine.fixtures.v1.json` — executable baseline pipeline fixtures
-- `mizan-engine.fixtures.v1.1.json` — extended role/boundary fixtures
+- `mizan-engine.fixtures.v1.json` + `v1.1` — executable structural pipeline fixtures
+- `mizan-analytical.fixtures.v1.2.json` — analytical evidence/ARI fixtures
 
-The Rust contract tests validate both the v1 base contract and the v1.1 extension contract.
+The Rust contract tests validate the full chain `v1.0 -> v1.1 -> v1.2`.
 
 ### 4. FAMILY / KINSHIP + NASIHAH
 
 `MIZAN-FAMILY-NASIHAH-DOMAIN.md`
 
-Adds:
-
-- `FAMILY_KINSHIP` as a relationship domain
-- `NASIHAH_CORRECTIVE_GUIDANCE` / `CorrectiveGuidance` as a cross-level activity
-- `COUNSEL_AUTHORITY` / `Counsel` without implicit administrative or enforcement power
-- upward, downward, and lateral counsel routing
+Adds `FAMILY_KINSHIP` as a relationship domain and `NASIHAH_CORRECTIVE_GUIDANCE` / `CorrectiveGuidance` as a cross-level activity. `COUNSEL_AUTHORITY` does not imply administrative or enforcement power.
 
 `CORRECTIVE_GUIDANCE` is an **activity**, never a structural level.
 
@@ -50,19 +46,21 @@ Canonical executable rules live in Rust. JSON remains the contract/fixture forma
 
 ```text
 crates/
-  mizan-model/        # typed raw input, resolved event, result model
-  mizan-contract/     # base + extension contract validation
+  mizan-model/        # typed raw input, evidence, factors, event/result model
+  mizan-contract/     # v1.0/v1.1/v1.2 contract validation
   mizan-role/         # active role -> contextual structural level
   mizan-authority/    # role/context -> effective authority + boundary checks
   mizan-th/           # deterministic TH resolver
   mizan-routing/      # route + no-bypass + counsel-boundary validator
+  mizan-evidence/     # evidence reliability, provenance, factor bindings
+  mizan-factors/      # Intent/Impact/Scope/Context/Causal vector + ARI
   mizan-engine/       # full orchestration / Mizan calculation
   mizan-ledger/       # evidence/provenance result record
   mizan-cli/          # raw JSON MizanInput CLI
-  mizan-api/          # Axum HTTP adapter + PostgreSQL immutable ledger
+  mizan-api/          # Axum HTTP adapter + PostgreSQL append-only ledger
 ```
 
-The public execution flow is:
+## Public Execution Flow
 
 ```text
 MizanInput
@@ -71,25 +69,22 @@ ROLE / LEVEL RESOLVER
    ↓
 AUTHORITY RESOLVER
    ↓
-RESOLVED MizanEvent
-   ↓
 TH RESOLVER
    ↓
 ROUTING / NO-BYPASS VALIDATOR
    ↓
+EVIDENCE + PROVENANCE ASSESSMENT
+   ↓
+INTENT / IMPACT / SCOPE / CONTEXT / CAUSAL VECTOR
+   ↓
+ARI-0.1.0 (when factors are complete)
+   ↓
 MizanCalculation
-   ├─ resolved_event
-   ├─ TH class
-   ├─ numeric th_value
-   ├─ authority_valid
-   ├─ denied_authorities
-   ├─ routing decision
-   ├─ structurally_valid
-   ├─ evidence_sufficient
-   └─ final_divine_judgment_computed = false
+   ↓
+HASHED APPEND-ONLY POSTGRES LEDGER
 ```
 
-Callers do **not** supply a trusted structural level or trusted effective authority. The engine resolves them from the event role, mission, mandate, activity, and context.
+Callers do **not** supply a trusted structural level or trusted effective authority. The engine resolves them from role, mission, mandate, activity, and context.
 
 ## Fundamental Rules
 
@@ -101,9 +96,15 @@ AUTHORITY ≠ DIVINE STATUS
 SAME TH ≠ SAME POSITION
 CORRECTIVE ≠ LEVEL
 COUNSEL_AUTHORITY ≠ ADMIN_AUTHORITY
+TH ≠ ARI
+ARI ≠ MORAL WORTH
+ARI ≠ SALVATION
+ARI ≠ LEGAL VERDICT
+ARI ≠ FINAL DIVINE JUDGMENT
+UNKNOWN ≠ GUESSED VALUE
 ```
 
-TH is an event responsibility weight, not human worth, holiness, salvation status, or divine favor.
+TH remains the event responsibility weight:
 
 ```text
 TH33   SPECIAL MISSION / HIGH MANDATE
@@ -114,53 +115,64 @@ TH1    PASSIVE / MINOR ROLE
 TH0.x  TRACE / INDIRECT CONTRIBUTION
 ```
 
-Examples:
+## Evidence / Provenance Engine
+
+Each `EvidenceRef` may carry:
 
 ```text
-Police off-duty general event  -> resolved L6 / TH2.5
-Police active lawful mandate   -> resolved L4 / TH33
-Doctor normal practice         -> L5 / TH17
-Doctor emergency               -> L5 / TH33
-Human family corrective advice -> L6 / TH5 / Counsel only
+id
+source
+kind
+reliability
+provenance[]
+  source
+  method
+  reference
 ```
 
-## Core Routing
+Evidence strength is reported independently from provenance completeness. Analytical factors may bind to evidence IDs. A missing binding reference is explicit and prevents an ARI from being marked evidence-supported.
+
+Evidence reliability classes:
 
 ```text
-MESSAGE / GUIDANCE
-ALLAH -> REVELATION -> RASUL/NABI -> BALAGH/GUIDANCE -> HUMAN
-
-RELIGIOUS STEWARDSHIP
-REVELATION/GUIDANCE -> RASUL/NABI -> ULAMA/RELIGIOUS SCHOLAR -> COMMUNITY
-
-CIVIL EXECUTION
-GUIDANCE/PRINCIPLE -> ULUL AMRI/GOVERNMENT -> ADMINISTRATION
--> STATE INSTITUTION -> PUBLIC SERVICE/OFFICER -> HUMAN/CIVIL
-
-FAMILY GUIDANCE
-KNOWLEDGE/CONCERN -> FAMILY RELATION -> COUNSEL/WARNING/CORRECTIVE GUIDANCE -> FAMILY MEMBER
-
-CROSS-LEVEL COUNSEL
-RELEVANT KNOWLEDGE/EVIDENCE -> COUNSEL -> HIGHER/LOWER/PEER ROLE
+Low
+Medium
+High
+Verified
+Unknown
 ```
 
-Direct guidance is not the same thing as direct civil administrative execution. Family seniority is not absolute authority, and counsel does not transfer administrative or enforcement power.
+## Analytical Factor Vector
 
-## CLI
+Sprint 03 adds five event dimensions without replacing TH:
 
-Run all tests:
-
-```bash
-cargo test --workspace --all-targets
+```text
+INTENT
+IMPACT
+SCOPE
+CONTEXT
+CAUSAL CONTRIBUTION
 ```
 
-Evaluate a raw input:
+Unknown dimensions are preserved as `Unknown`; they are not silently imputed.
 
-```bash
-cargo run -p mizan-cli -- examples/family-corrective-guidance.json
+### ARI — Analytical Responsibility Index
+
+Current calibration: `ARI-0.1.0`.
+
+```text
+TH normalized          30%
+Intent                 20%
+Impact                 20%
+Scope                  10%
+Causal contribution    20%
+× Context multiplier
+= ARI 0..100
 ```
 
-The CLI returns a complete `MizanCalculation` and exits non-zero when structural/authority routing validation fails.
+ARI is produced only when TH and all five analytical factors are known. The engine separately reports whether the resulting ARI is adequately supported by evidence bindings and reliability. Therefore a numerical ARI can be marked **provisional** when evidence support is insufficient.
+
+ARI is a versioned analytical comparison value inside MoonWitness. It is not a statement of human worth, holiness, guilt, salvation, heaven/hell, or final divine judgment.
 
 ## HTTP API
 
@@ -175,39 +187,48 @@ POST /api/v1/resolve-role
 POST /api/v1/resolve-authority
 POST /api/v1/resolve-th
 POST /api/v1/validate-route
+POST /api/v1/assess-evidence
+POST /api/v1/score-factors
 ```
 
 OpenAPI source: `openapi/mizan-api.v1.yaml`.
 
-Run without persistence:
+## CLI / Examples
+
+Run all tests:
 
 ```bash
-cargo run -p mizan-api
+cargo test --workspace --all-targets
 ```
 
-Run with PostgreSQL ledger:
+Structural example:
 
 ```bash
-export DATABASE_URL=postgres://postgres:postgres@localhost:5432/mizan
-cargo run -p mizan-api
+cargo run -p mizan-cli -- examples/family-corrective-guidance.json
 ```
 
-When `DATABASE_URL` is present the API automatically runs embedded SQLx migrations and persists successful `/analyze` and `/evaluate` calls with:
+Evidence-backed analytical example:
+
+```bash
+cargo run -p mizan-cli -- examples/analytical-doctor.json
+```
+
+The CLI returns a complete `MizanCalculation` and exits non-zero when structural/authority routing validation fails.
+
+## PostgreSQL Ledger
+
+When `DATABASE_URL` is present, the API automatically runs embedded SQLx migrations and persists `/analyze` and `/evaluate` calls with hashed input/output plus version metadata.
+
+Sprint 03 additionally persists:
 
 ```text
-record_id
-occurred_at
-actor_id
-input_json
-result_json
-input_hash
-result_hash
-ontology_version
-contract_version
-engine_version
+evidence_strength
+analytical_responsibility_index
+ari_calibration_version
+ari_evidence_sufficient
 ```
 
-This persistence is an audit ledger for the engine output; it does not represent final divine judgment.
+The ledger is protected by database triggers against `UPDATE` and `DELETE` and remains an audit record of engine output. It is not a divine judgment ledger.
 
 ## Docker / Local Stack
 
@@ -222,32 +243,24 @@ PostgreSQL :5432
 Mizan API  :3000
 ```
 
-Copy `.env.example` when running services directly outside Compose.
-
 ## Automated Coverage
 
-The full engine fixture suite now contains **30 cases**, including:
+Structural coverage contains **30 role/boundary cases**. Sprint 03 adds **10 analytical fixtures** covering:
 
-- Rasul and Nabi guidance missions
-- Ulama knowledge role and Mission #2
-- Ulul Amri / government context
-- Police off-duty and on-duty
-- Prosecutor and Judge
-- Military defense
-- Advocate active mandate and expert-only context
-- Doctor normal and emergency response
-- Scientist, Engineer, Teacher
-- Parent, Guardian, Caregiver
-- general citizen, passive role, trace contribution
-- family and cross-level corrective counsel
-- rejected Human -> Admin escalation
-- rejected Doctor -> Enforcement escalation
-- rejected Police -> Medical escalation
-- rejected Ulama -> Enforcement escalation
+- evidence-supported ARI
+- high-mandate responsibility vector
+- constrained accidental context
+- unknown factor blocking ARI
+- missing evidence binding producing provisional ARI
+- low-reliability evidence producing provisional ARI
+- emergency professional context
+- trace contribution vs separate causal contribution
+- provenance completeness reporting
+- backward compatibility for legacy inputs without analytical factors
 
-API tests cover health, raw-input evaluation, role resolution, authority-boundary rejection, and PostgreSQL persistence.
+API tests cover health, structural evaluation, authority boundaries, evidence assessment, factor scoring, PostgreSQL persistence, analytical metadata persistence, and append-only mutation rejection.
 
-GitHub Actions at `.github/workflows/rust-ci.yml` starts PostgreSQL and runs:
+GitHub Actions starts PostgreSQL and runs:
 
 ```bash
 cargo test --workspace --all-targets
@@ -257,12 +270,15 @@ on pushes to `main` and pull requests.
 
 ## Current Baseline
 
-**Ontology:** v1.1 conceptual baseline  
-**Governance/TH contract:** v1 base + v1.1 extension  
-**Executable pipeline:** role + authority + TH + routing + 30 fixture cases  
-**HTTP:** Axum API v1  
-**Ledger:** PostgreSQL + input/result hashes + version metadata  
+**Ontology:** v1.2 analytical baseline  
+**Contract chain:** v1.0 + v1.1 + v1.2  
+**Structural pipeline:** role + authority + TH + routing  
+**Analytical pipeline:** evidence + provenance + intent + impact + scope + context + causal contribution  
+**ARI:** `ARI-0.1.0`  
+**Structural fixtures:** 30  
+**Analytical fixtures:** 10  
+**HTTP:** Axum API v1.2  
+**Ledger:** PostgreSQL append-only + hashes + version + analytical metadata  
 **OpenAPI:** `openapi/mizan-api.v1.yaml`  
-**Local delivery:** Docker Compose  
 **Canonical engine:** Rust  
 **Branch:** `main`
