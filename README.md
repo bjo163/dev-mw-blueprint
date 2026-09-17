@@ -34,6 +34,26 @@ Operational ontology for:
 
 Canonical v1 contract for future API, DB, validator, and test implementations.
 
+### 4. FAMILY / KINSHIP + NASIHAH Extension
+
+`MIZAN-FAMILY-NASIHAH-DOMAIN.md`
+
+Adds two dimensions that were missing from the first governance baseline:
+
+- `FAMILY_KINSHIP` — relationship domain
+- `NASIHAH_CORRECTIVE_GUIDANCE` — cross-level activity domain
+- `COUNSEL_AUTHORITY` — advice/correction authority that does not imply administrative or enforcement power
+- family, guardianship, warning, reminder, counsel, and corrective-guidance event fields
+- upward / downward / lateral counsel routing
+
+Machine-readable extension:
+
+`mizan-governance-th.v1.1.json`
+
+Additional fixtures:
+
+`mizan-governance-th.fixtures.v1.1.json`
+
 ---
 
 ## Fundamental Rule
@@ -69,12 +89,20 @@ REVELATION/GUIDANCE -> RASUL/NABI -> ULAMA/RELIGIOUS SCHOLAR -> COMMUNITY
 CIVIL EXECUTION
 GUIDANCE/PRINCIPLE -> ULUL AMRI/GOVERNMENT -> ADMINISTRATION
 -> STATE INSTITUTION -> PUBLIC SERVICE/OFFICER -> HUMAN/CIVIL
+
+FAMILY GUIDANCE
+KNOWLEDGE/CONCERN -> FAMILY RELATION -> COUNSEL/WARNING/CORRECTIVE GUIDANCE -> FAMILY MEMBER
+
+CROSS-LEVEL COUNSEL
+RELEVANT KNOWLEDGE/EVIDENCE -> COUNSEL -> HIGHER/LOWER/PEER ROLE
 ```
 
 Direct guidance is not the same thing as direct civil administrative execution.
 
+Family seniority is not absolute authority, and counsel does not transfer administrative power.
+
 ## Current Baseline
 
 **Ontology:** v1.1 conceptual baseline  
-**Governance/TH contract:** v1.0  
+**Governance/TH contract:** v1.1 extension over v1.0  
 **Branch:** `main`
