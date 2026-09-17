@@ -1,0 +1,173 @@
+{
+  "schema_version": "1.1.0",
+  "name": "MoonWitness Mizan Governance TH — Family/Nasihah Extension",
+  "extends": "mizan-governance-th.v1.json",
+  "status": "baseline-extension",
+  "relationship_domains_add": [
+    {
+      "id": "FAMILY_KINSHIP",
+      "label": "FAMILY / KINSHIP RESPONSIBILITY",
+      "relations": [
+        "PARENT",
+        "CHILD",
+        "SPOUSE",
+        "SIBLING",
+        "GUARDIAN",
+        "DEPENDENT",
+        "RELATIVE",
+        "HOUSEHOLD_MEMBER",
+        "CAREGIVER"
+      ],
+      "functions": [
+        "CARE",
+        "PROTECTION",
+        "MAINTENANCE",
+        "EDUCATION",
+        "GUIDANCE",
+        "WARNING",
+        "SUPPORT",
+        "HOUSEHOLD_RESPONSIBILITY"
+      ],
+      "typical_th_candidates": {
+        "ordinary_family_responsibility": 5,
+        "expert_knowledge_active": 17,
+        "special_mission": 33
+      }
+    }
+  ],
+  "activity_domains_add": [
+    {
+      "id": "NASIHAH_CORRECTIVE_GUIDANCE",
+      "label": "NASIHAH / COUNSEL / CORRECTIVE GUIDANCE",
+      "framework_term": true,
+      "functions": [
+        "ADVISE",
+        "WARN",
+        "REMIND",
+        "CORRECT",
+        "COUNSEL",
+        "GUIDE"
+      ],
+      "constraints": [
+        "NOT_ADMIN_COMMAND_BY_DEFAULT",
+        "NOT_ENFORCEMENT_BY_DEFAULT",
+        "NOT_COERCIVE_AUTHORITY_BY_DEFAULT",
+        "MAY_ROUTE_UPWARD_DOWNWARD_OR_LATERALLY"
+      ]
+    }
+  ],
+  "mandate_sources_add": [
+    "FAMILY",
+    "GUARDIANSHIP"
+  ],
+  "mission_types_add": [
+    "FAMILY_CARE",
+    "FAMILY_GUIDANCE",
+    "COUNSEL",
+    "WARNING",
+    "CORRECTIVE_GUIDANCE",
+    "REMINDER"
+  ],
+  "authority_dimensions_add": [
+    "COUNSEL_AUTHORITY"
+  ],
+  "mizan_event_vector_add": [
+    "RELATION_DOMAIN",
+    "ACTOR_RELATION_TO_TARGET",
+    "TARGET_RELATION_TO_ACTOR",
+    "ACTIVITY_DOMAIN",
+    "COUNSEL_SCOPE",
+    "CORRECTION_TARGET",
+    "RESPECT_BOUNDARY",
+    "COERCION_PRESENT"
+  ],
+  "routing_add": {
+    "family_guidance": [
+      "KNOWLEDGE_OR_CONCERN",
+      "FAMILY_RELATION",
+      "COUNSEL_WARNING_OR_CORRECTIVE_GUIDANCE",
+      "FAMILY_MEMBER"
+    ],
+    "cross_level_counsel": [
+      "RELEVANT_KNOWLEDGE_OR_EVIDENCE",
+      "COUNSEL",
+      "HIGHER_LOWER_OR_PEER_ROLE"
+    ],
+    "rules": {
+      "child_to_parent_counsel": "VALID",
+      "citizen_to_leader_counsel": "VALID",
+      "doctor_to_leader_medical_counsel": "VALID",
+      "scholar_to_government_guidance": "VALID",
+      "counsel_implies_admin_command": "FALSE",
+      "counsel_implies_enforcement_authority": "FALSE"
+    }
+  },
+  "anchor_cases": [
+    {
+      "id": "Q19_41_45_IBRAHIM_FATHER",
+      "source_reference": "Q19:41-45",
+      "epistemic_note": "FAMILY_KINSHIP and NASIHAH_CORRECTIVE_GUIDANCE are MoonWitness analytical mappings; the framework does not claim the source passage literally uses every framework label.",
+      "mapping": {
+        "actor_relation": "CHILD",
+        "target_relation": "PARENT",
+        "relation_domain": "FAMILY_KINSHIP",
+        "activity_domain": "NASIHAH_CORRECTIVE_GUIDANCE",
+        "functions": ["GUIDANCE", "WARNING", "CORRECT"],
+        "admin_command": false,
+        "coercive_authority_implied": false
+      }
+    }
+  ],
+  "th_guidance_add": [
+    {
+      "condition": "ordinary_family_or_care_responsibility",
+      "candidate_th": 5
+    },
+    {
+      "condition": "specialized_or_knowledge_backed_counsel",
+      "candidate_th": 17
+    },
+    {
+      "condition": "formal_high_stakes_special_mission",
+      "candidate_th": 33
+    },
+    {
+      "condition": "ordinary_human_comment_without_special_duty",
+      "candidate_th": 2.5
+    }
+  ],
+  "invariants_add": [
+    {
+      "id": "INV-FAM-001",
+      "rule": "FAMILY/KINSHIP is a relationship domain, not a superiority ladder"
+    },
+    {
+      "id": "INV-FAM-002",
+      "rule": "Parent status does not make every statement epistemically correct"
+    },
+    {
+      "id": "INV-FAM-003",
+      "rule": "Child or junior status does not prohibit evidence-based counsel"
+    },
+    {
+      "id": "INV-NAS-001",
+      "rule": "NASIHAH/CORRECTIVE_GUIDANCE is an activity domain, not civil administrative command"
+    },
+    {
+      "id": "INV-NAS-002",
+      "rule": "COUNSEL_AUTHORITY does not imply ADMIN_AUTHORITY or ENFORCEMENT_AUTHORITY"
+    },
+    {
+      "id": "INV-NAS-003",
+      "rule": "Advice may route upward, downward, or laterally across structural levels"
+    },
+    {
+      "id": "INV-NAS-004",
+      "rule": "Respect and correction may coexist in the same event"
+    },
+    {
+      "id": "INV-NAS-005",
+      "rule": "NASIHAH is framework terminology unless explicitly present in the cited source"
+    }
+  ]
+}
