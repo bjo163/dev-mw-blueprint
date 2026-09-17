@@ -11,6 +11,8 @@ chrono = { version = "0.4", features = ["serde"] }
 hex = "0.4"
 mizan-authority = { path = "../mizan-authority" }
 mizan-engine = { path = "../mizan-engine" }
+mizan-evidence = { path = "../mizan-evidence" }
+mizan-factors = { path = "../mizan-factors" }
 mizan-model = { path = "../mizan-model" }
 mizan-role = { path = "../mizan-role" }
 mizan-routing = { path = "../mizan-routing" }
