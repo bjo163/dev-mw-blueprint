@@ -1,0 +1,147 @@
+{
+  "fixture_version": "1.2.0",
+  "cases": [
+    {
+      "id": "ARI-001",
+      "name": "Doctor evidence-supported analytical vector",
+      "input": {
+        "actor_id": "doctor-ari-1",
+        "active_role": "Doctor",
+        "relationship_domains": ["Professional"],
+        "activities": ["Healing"],
+        "mission_types": ["Healing"],
+        "mandate_sources": ["Professional"],
+        "requested_authority_dimensions": ["Medical"],
+        "route": "ProfessionalService",
+        "expert_knowledge_active": true,
+        "functional_responsibility_active": true,
+        "trace_contribution": null,
+        "evidence": [{
+          "id": "E1", "source": "hospital", "kind": "InstitutionalRecord", "reliability": "Verified",
+          "provenance": [{"source":"hospital-system","method":"signed-export","reference":"ARI-001"}]
+        }],
+        "analytical_factors": {
+          "intent": "Knowing", "impact": "Moderate", "scope": "Individual", "context": "ElevatedDuty", "causal_contribution": "Direct",
+          "evidence_bindings": {"intent":["E1"],"impact":["E1"],"scope":["E1"],"context":["E1"],"causal_contribution":["E1"]}
+        }
+      },
+      "expected": {"ari_computed":true,"evidence_supported":true,"strength":"Verified","min_ari":68.0,"max_ari":68.3}
+    },
+    {
+      "id": "ARI-002",
+      "name": "Police high mandate high analytical responsibility",
+      "input": {
+        "actor_id": "police-ari-2",
+        "active_role": "Police",
+        "relationship_domains": ["Governance","Legal"],
+        "activities": ["LawEnforcement"],
+        "mission_types": ["LawEnforcement","Protection"],
+        "mandate_sources": ["State","Legal"],
+        "requested_authority_dimensions": ["Enforcement","Legal"],
+        "route": "CivilGovernance",
+        "mandate_active": true,
+        "trace_contribution": null,
+        "evidence": [{
+          "id": "E1", "source": "state", "kind": "InstitutionalRecord", "reliability": "High",
+          "provenance": [{"source":"dispatch","method":"signed-log","reference":"ARI-002"}]
+        }],
+        "analytical_factors": {
+          "intent":"Deliberate","impact":"High","scope":"Institutional","context":"ElevatedDuty","causal_contribution":"Direct",
+          "evidence_bindings":{"intent":["E1"],"impact":["E1"],"scope":["E1"],"context":["E1"],"causal_contribution":["E1"]}
+        }
+      },
+      "expected": {"ari_computed":true,"evidence_supported":true,"strength":"Strong","min_ari":99.4,"max_ari":99.7}
+    },
+    {
+      "id": "ARI-003",
+      "name": "Constrained accidental human event",
+      "input": {
+        "actor_id":"human-ari-3",
+        "active_role":"Human",
+        "relationship_domains":["GeneralCivil"],
+        "activities":["GeneralCivil"],
+        "mission_types":["GeneralCivil"],
+        "mandate_sources":["Personal"],
+        "route":"GeneralCivil",
+        "trace_contribution":null,
+        "evidence":[{
+          "id":"E1","source":"observation","kind":"Observation","reliability":"Medium",
+          "provenance":[{"source":"witness-log","method":"timestamped-observation","reference":"ARI-003"}]
+        }],
+        "analytical_factors":{
+          "intent":"Accidental","impact":"Low","scope":"Individual","context":"Constrained","causal_contribution":"Minor",
+          "evidence_bindings":{"intent":["E1"],"impact":["E1"],"scope":["E1"],"context":["E1"],"causal_contribution":["E1"]}
+        }
+      },
+      "expected":{"ari_computed":true,"evidence_supported":true,"strength":"Moderate","min_ari":10.8,"max_ari":11.1}
+    },
+    {
+      "id":"ARI-004",
+      "name":"Unknown intent blocks analytical index",
+      "input":{
+        "actor_id":"human-ari-4","active_role":"Human","relationship_domains":["GeneralCivil"],"activities":["GeneralCivil"],"mission_types":["GeneralCivil"],"mandate_sources":["Personal"],"route":"GeneralCivil","trace_contribution":null,
+        "evidence":[{"id":"E1","source":"record","kind":"Document","reliability":"Verified","provenance":[{"source":"source","method":"signed","reference":"ARI-004"}]}],
+        "analytical_factors":{"intent":"Unknown","impact":"High","scope":"Local","context":"Normal","causal_contribution":"Direct","evidence_bindings":{"impact":["E1"],"scope":["E1"],"context":["E1"],"causal_contribution":["E1"]}}
+      },
+      "expected":{"ari_computed":false,"evidence_supported":false,"strength":"Verified","min_ari":null,"max_ari":null}
+    },
+    {
+      "id":"ARI-005",
+      "name":"Missing evidence id makes computed ARI provisional",
+      "input":{
+        "actor_id":"parent-ari-5","active_role":"Parent","relationship_domains":["FamilyKinship"],"activities":["Care"],"mission_types":["Care"],"mandate_sources":["Social"],"requested_authority_dimensions":["Social"],"route":"ProfessionalService","functional_responsibility_active":true,"trace_contribution":null,
+        "evidence":[{"id":"E1","source":"family-record","kind":"Document","reliability":"Verified","provenance":[{"source":"record","method":"signed","reference":"ARI-005"}]}],
+        "analytical_factors":{"intent":"Deliberate","impact":"Moderate","scope":"Household","context":"Normal","causal_contribution":"Material","evidence_bindings":{"intent":["MISSING"],"impact":["E1"],"scope":["E1"],"context":["E1"],"causal_contribution":["E1"]}}
+      },
+      "expected":{"ari_computed":true,"evidence_supported":false,"strength":"Verified","min_ari":47.0,"max_ari":47.2}
+    },
+    {
+      "id":"ARI-006",
+      "name":"Low reliability keeps ARI provisional",
+      "input":{
+        "actor_id":"human-ari-6","active_role":"Human","relationship_domains":["GeneralCivil"],"activities":["GeneralCivil"],"mission_types":["GeneralCivil"],"mandate_sources":["Personal"],"route":"GeneralCivil","trace_contribution":null,
+        "evidence":[{"id":"E1","source":"uncorroborated","kind":"Testimony","reliability":"Low","provenance":[{"source":"statement","method":"manual-entry","reference":"ARI-006"}]}],
+        "analytical_factors":{"intent":"Deliberate","impact":"Severe","scope":"Transnational","context":"Normal","causal_contribution":"Direct","evidence_bindings":{"intent":["E1"],"impact":["E1"],"scope":["E1"],"context":["E1"],"causal_contribution":["E1"]}}
+      },
+      "expected":{"ari_computed":true,"evidence_supported":false,"strength":"Weak","min_ari":72.1,"max_ari":72.4}
+    },
+    {
+      "id":"ARI-007",
+      "name":"Doctor emergency factor vector",
+      "input":{
+        "actor_id":"doctor-ari-7","active_role":"Doctor","relationship_domains":["Professional"],"activities":["Healing"],"mission_types":["Healing","EmergencyResponse"],"mandate_sources":["Professional","Emergency"],"requested_authority_dimensions":["Medical"],"route":"ProfessionalService","mandate_active":true,"emergency_state":true,"expert_knowledge_active":true,"functional_responsibility_active":true,"trace_contribution":null,
+        "evidence":[{"id":"E1","source":"emergency-log","kind":"InstitutionalRecord","reliability":"High","provenance":[{"source":"hospital","method":"signed-log","reference":"ARI-007"}]}],
+        "analytical_factors":{"intent":"Knowing","impact":"High","scope":"Institutional","context":"Emergency","causal_contribution":"Direct","evidence_bindings":{"intent":["E1"],"impact":["E1"],"scope":["E1"],"context":["E1"],"causal_contribution":["E1"]}}
+      },
+      "expected":{"ari_computed":true,"evidence_supported":true,"strength":"Strong","min_ari":89.6,"max_ari":89.9}
+    },
+    {
+      "id":"ARI-008",
+      "name":"Trace contribution remains low TH but separate causal vector",
+      "input":{
+        "actor_id":"trace-ari-8","active_role":"Human","relationship_domains":["GeneralCivil"],"activities":["GeneralCivil"],"mission_types":["GeneralCivil"],"mandate_sources":["Personal"],"route":"GeneralCivil","trace_contribution":0.5,
+        "evidence":[{"id":"E1","source":"digital-trace","kind":"DigitalRecord","reliability":"High","provenance":[{"source":"system","method":"hash-chain","reference":"ARI-008"}]}],
+        "analytical_factors":{"intent":"Knowing","impact":"Low","scope":"Local","context":"Normal","causal_contribution":"Trace","evidence_bindings":{"intent":["E1"],"impact":["E1"],"scope":["E1"],"context":["E1"],"causal_contribution":["E1"]}}
+      },
+      "expected":{"ari_computed":true,"evidence_supported":true,"strength":"Strong","min_ari":26.3,"max_ari":26.6}
+    },
+    {
+      "id":"ARI-009",
+      "name":"No provenance is reported separately from reliability",
+      "input":{
+        "actor_id":"human-ari-9","active_role":"Human","relationship_domains":["GeneralCivil"],"activities":["GeneralCivil"],"mission_types":["GeneralCivil"],"mandate_sources":["Personal"],"route":"GeneralCivil","trace_contribution":null,
+        "evidence":[{"id":"E1","source":"verified-record","kind":"Document","reliability":"Verified","provenance":[]}],
+        "analytical_factors":{"intent":"Knowing","impact":"Moderate","scope":"Local","context":"Normal","causal_contribution":"Material","evidence_bindings":{"intent":["E1"],"impact":["E1"],"scope":["E1"],"context":["E1"],"causal_contribution":["E1"]}}
+      },
+      "expected":{"ari_computed":true,"evidence_supported":true,"strength":"Verified","provenance_complete":false,"min_ari":41.2,"max_ari":41.5}
+    },
+    {
+      "id":"ARI-010",
+      "name":"No analytical factors preserves legacy structural calculation",
+      "input":{
+        "actor_id":"legacy-ari-10","active_role":"Human","relationship_domains":["GeneralCivil"],"activities":["GeneralCivil"],"mission_types":["GeneralCivil"],"mandate_sources":["Personal"],"route":"GeneralCivil","trace_contribution":null,"evidence":[{"id":"legacy","source":"event"}]
+      },
+      "expected":{"ari_computed":false,"evidence_supported":false,"strength":"Weak","min_ari":null,"max_ari":null}
+    }
+  ]
+}
