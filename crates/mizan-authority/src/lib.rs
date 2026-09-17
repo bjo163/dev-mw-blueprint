@@ -131,7 +131,7 @@ fn push_unique(target: &mut Vec<AuthorityDimension>, value: AuthorityDimension) 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use mizan_model::{RelationshipDomain, RouteKind};
+    use mizan_model::{AnalyticalFactorsInput, RelationshipDomain, RouteKind};
 
     fn human_corrective() -> MizanInput {
         MizanInput {
@@ -150,6 +150,7 @@ mod tests {
             passive_role: false,
             trace_contribution: None,
             evidence: vec![],
+            analytical_factors: AnalyticalFactorsInput::default(),
         }
     }
 
