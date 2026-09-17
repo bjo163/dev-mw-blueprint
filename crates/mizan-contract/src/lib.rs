@@ -11,9 +11,16 @@ pub enum ContractError {
     UnsupportedVersion(String),
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ContractKind {
+    Base,
+    Extension,
+}
+
 #[derive(Debug, Clone)]
 pub struct Contract {
     raw: Value,
+    kind: ContractKind,
 }
 
 impl Contract {
@@ -28,17 +35,27 @@ impl Contract {
             return Err(ContractError::UnsupportedVersion(version.to_owned()));
         }
 
-        for field in ["levels", "th_classes", "mandate_sources", "mission_types", "invariants"] {
-            if raw.get(field).is_none() {
-                return Err(ContractError::MissingField(field));
-            }
-        }
+        let kind = if raw.get("extends").is_some() {
+            validate_extension(&raw)?;
+            ContractKind::Extension
+        } else {
+            validate_base(&raw)?;
+            ContractKind::Base
+        };
 
-        Ok(Self { raw })
+        Ok(Self { raw, kind })
     }
 
     pub fn schema_version(&self) -> &str {
         self.raw["schema_version"].as_str().expect("validated schema_version")
+    }
+
+    pub fn kind(&self) -> ContractKind {
+        self.kind
+    }
+
+    pub fn extends(&self) -> Option<&str> {
+        self.raw.get("extends").and_then(Value::as_str)
     }
 
     pub fn raw(&self) -> &Value {
@@ -46,13 +63,45 @@ impl Contract {
     }
 }
 
+fn validate_base(raw: &Value) -> Result<(), ContractError> {
+    for field in ["levels", "th_classes", "mandate_sources", "mission_types", "invariants"] {
+        if raw.get(field).is_none() {
+            return Err(ContractError::MissingField(field));
+        }
+    }
+    Ok(())
+}
+
+fn validate_extension(raw: &Value) -> Result<(), ContractError> {
+    for field in ["extends", "relationship_domains_add", "activity_domains_add", "invariants_add"] {
+        if raw.get(field).is_none() {
+            return Err(ContractError::MissingField(field));
+        }
+    }
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn rejects_contract_without_required_fields() {
-        let err = Contract::from_json_str(r#"{"schema_version":"1.1.0"}"#).unwrap_err();
+    fn rejects_base_contract_without_required_fields() {
+        let err = Contract::from_json_str(r#"{"schema_version":"1.0.0"}"#).unwrap_err();
         assert!(matches!(err, ContractError::MissingField("levels")));
+    }
+
+    #[test]
+    fn recognizes_extension_contract() {
+        let input = r#"{
+          "schema_version":"1.1.0",
+          "extends":"base.json",
+          "relationship_domains_add":[],
+          "activity_domains_add":[],
+          "invariants_add":[]
+        }"#;
+        let contract = Contract::from_json_str(input).unwrap();
+        assert_eq!(contract.kind(), ContractKind::Extension);
+        assert_eq!(contract.extends(), Some("base.json"));
     }
 }
