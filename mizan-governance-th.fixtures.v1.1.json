@@ -1,0 +1,63 @@
+{
+  "fixture_version": "1.1.0",
+  "extends": "mizan-governance-th.fixtures.v1.json",
+  "contract": "mizan-governance-th.v1.1.json",
+  "cases": [
+    {
+      "id": "CASE-011",
+      "name": "Child gives corrective guidance to parent",
+      "input": {
+        "base_identity": "HUMAN",
+        "active_role": "CHILD",
+        "target_role": "PARENT",
+        "relation_domain": "FAMILY_KINSHIP",
+        "activity_domain": "NASIHAH_CORRECTIVE_GUIDANCE",
+        "mission_types": ["FAMILY_GUIDANCE", "WARNING", "CORRECTIVE_GUIDANCE"],
+        "mandate_sources": ["FAMILY", "SOCIAL"],
+        "admin_authority": false,
+        "enforcement_authority": false,
+        "event_type": "FAMILY_COUNSEL"
+      },
+      "expected": {
+        "route": "FAMILY_GUIDANCE",
+        "route_valid": true,
+        "admin_command": false,
+        "authority_dimensions": ["COUNSEL_AUTHORITY"],
+        "th_candidate": 5,
+        "reason_codes": [
+          "FAMILY_RELATION_ACTIVE",
+          "CORRECTIVE_GUIDANCE_ACTIVE",
+          "NO_ADMIN_AUTHORITY_TRANSFER"
+        ]
+      }
+    },
+    {
+      "id": "CASE-012",
+      "name": "Knowledge-backed junior counsels senior without taking authority",
+      "input": {
+        "base_identity": "HUMAN",
+        "active_role": "JUNIOR_EXPERT",
+        "target_role": "SENIOR_AUTHORITY",
+        "relation_domain": "PROFESSIONAL_OR_SOCIAL",
+        "activity_domain": "NASIHAH_CORRECTIVE_GUIDANCE",
+        "mission_types": ["COUNSEL", "CORRECTIVE_GUIDANCE"],
+        "mandate_sources": ["PROFESSIONAL"],
+        "knowledge_scope": "RELEVANT_EXPERTISE",
+        "admin_authority": false,
+        "event_type": "CROSS_LEVEL_COUNSEL"
+      },
+      "expected": {
+        "route": "CROSS_LEVEL_COUNSEL",
+        "route_valid": true,
+        "admin_command": false,
+        "authority_dimensions": ["COUNSEL_AUTHORITY"],
+        "th_candidate": 17,
+        "reason_codes": [
+          "RELEVANT_KNOWLEDGE_ACTIVE",
+          "COUNSEL_ROUTE_VALID",
+          "KNOWLEDGE_DOES_NOT_TRANSFER_ADMIN_AUTHORITY"
+        ]
+      }
+    }
+  ]
+}
