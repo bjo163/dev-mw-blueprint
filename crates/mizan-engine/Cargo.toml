@@ -7,5 +7,11 @@ rust-version.workspace = true
 
 [dependencies]
 mizan-model = { path = "../mizan-model" }
+mizan-role = { path = "../mizan-role" }
+mizan-authority = { path = "../mizan-authority" }
 mizan-th = { path = "../mizan-th" }
 mizan-routing = { path = "../mizan-routing" }
+serde.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true
