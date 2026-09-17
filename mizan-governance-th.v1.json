@@ -1,0 +1,475 @@
+{
+  "schema_version": "1.0.0",
+  "name": "MoonWitness Mizan Governance TH",
+  "status": "baseline",
+  "principles": {
+    "level_not_equal_weight": true,
+    "weight_not_equal_status": true,
+    "mission_not_equal_identity": true,
+    "authority_not_equal_divine_status": true,
+    "same_th_not_equal_same_position": true,
+    "same_th_not_equal_same_authority_source": true,
+    "th_is_event_based": true,
+    "final_divine_judgment_is_not_computed": true
+  },
+  "levels": [
+    {
+      "id": "L0",
+      "label": "ALLAH",
+      "type": "ABSOLUTE_SOURCE",
+      "scorable": false,
+      "default_th": null,
+      "roles": ["ALLAH"]
+    },
+    {
+      "id": "L1",
+      "label": "SPECIAL_DIVINE_RELATION",
+      "type": "RELATION_DESIGNATION_SUPPORT",
+      "scorable": false,
+      "default_th": null,
+      "roles": [
+        "KHALIL",
+        "TAKLIM",
+        "KALIMATUHU",
+        "RUHUN_MINHU",
+        "RUH_AL_QUDUS"
+      ],
+      "constraints": [
+        "NOT_CIVIL_AUTHORITY",
+        "NOT_GOVERNMENT_LEVEL",
+        "NOT_ADMINISTRATIVE_SUPERIORITY"
+      ]
+    },
+    {
+      "id": "L2",
+      "label": "DIVINE_COMMISSION",
+      "type": "MISSION_1",
+      "scorable": true,
+      "default_th": 33,
+      "roles": ["RASUL", "NABI"],
+      "mission_types": ["REVELATION", "BALAGH", "GUIDANCE"]
+    },
+    {
+      "id": "L3",
+      "label": "RELIGIOUS_STEWARDSHIP",
+      "type": "MISSION_2",
+      "scorable": true,
+      "default_th": 17,
+      "active_mission_th": 33,
+      "roles": [
+        "ULAMA",
+        "RELIGIOUS_SCHOLAR",
+        "AHL_AL_DHIKR",
+        "PEOPLE_OF_RELIGIOUS_KNOWLEDGE",
+        "RELIGIOUS_TEACHER",
+        "RELIGIOUS_STEWARD"
+      ]
+    },
+    {
+      "id": "L4",
+      "label": "GOVERNANCE_SPECIAL_CIVIL_MANDATE",
+      "type": "CIVIL_MANDATE",
+      "scorable": true,
+      "default_th": 33,
+      "roles": [
+        "ULUL_AMRI",
+        "HEAD_OF_STATE",
+        "GOVERNMENT_LEADER",
+        "ADMINISTRATIVE_AUTHORITY",
+        "JUDGE",
+        "PROSECUTOR",
+        "COURT_AUTHORITY",
+        "REGULATOR",
+        "POLICE",
+        "MILITARY",
+        "LAW_ENFORCEMENT",
+        "INTELLIGENCE",
+        "SECURITY",
+        "EMERGENCY_COMMAND",
+        "ADVOCATE_ACTIVE_MANDATE"
+      ]
+    },
+    {
+      "id": "L5",
+      "label": "EXPERT_PROFESSIONAL_PUBLIC_SERVICE_SOCIAL_RESPONSIBILITY",
+      "type": "EXPERT_FUNCTIONAL",
+      "scorable": true,
+      "default_th": 5,
+      "expert_th": 17,
+      "special_mission_th": 33,
+      "roles": [
+        "DOCTOR",
+        "NURSE",
+        "SCIENTIST",
+        "ENGINEER",
+        "PROFESSOR",
+        "TEACHER",
+        "LAWYER_AS_EXPERT",
+        "TECHNICIAN",
+        "CIVIL_SERVANT",
+        "ADMINISTRATOR",
+        "MANAGER",
+        "PARENT",
+        "GUARDIAN",
+        "CAREGIVER"
+      ]
+    },
+    {
+      "id": "L6",
+      "label": "HUMAN_CIVIL",
+      "type": "GENERAL_HUMAN",
+      "scorable": true,
+      "default_th": 2.5,
+      "passive_th": 1,
+      "trace_th_class": "0.x",
+      "roles": [
+        "INDIVIDUAL",
+        "CITIZEN",
+        "RESIDENT",
+        "STUDENT",
+        "WORKER",
+        "PATIENT",
+        "CUSTOMER",
+        "PASSENGER",
+        "GENERAL_PUBLIC"
+      ]
+    }
+  ],
+  "th_classes": [
+    {
+      "value": 33,
+      "id": "SPECIAL_MISSION_HIGH_MANDATE",
+      "meaning": "Special mission or high active mandate"
+    },
+    {
+      "value": 17,
+      "id": "EXPERT_KNOWLEDGE_RESPONSIBILITY",
+      "meaning": "Expert or knowledge responsibility"
+    },
+    {
+      "value": 5,
+      "id": "FUNCTIONAL_SOCIAL_RESPONSIBILITY",
+      "meaning": "Functional or social responsibility"
+    },
+    {
+      "value": 2.5,
+      "id": "GENERAL_HUMAN_BASELINE",
+      "meaning": "Ordinary human/civil agency baseline"
+    },
+    {
+      "value": 1,
+      "id": "PASSIVE_MINOR_ROLE",
+      "meaning": "Passive or minor event role"
+    },
+    {
+      "value": null,
+      "id": "TRACE_INDIRECT",
+      "display": "0.x",
+      "meaning": "Trace or indirect contribution supported by causal evidence"
+    }
+  ],
+  "th_model_note": "The TH scale uses honey composition only as a structural analogy for major, supporting, minor, and trace components. It is not a literal chemical-percentage mapping and not a scriptural numeric claim.",
+  "mandate_sources": [
+    "DIVINE",
+    "REVELATORY",
+    "RELIGIOUS_STEWARDSHIP",
+    "STATE",
+    "LEGAL",
+    "INSTITUTIONAL",
+    "PROFESSIONAL",
+    "SOCIAL",
+    "PERSONAL",
+    "EMERGENCY",
+    "DELEGATED",
+    "NONE",
+    "UNKNOWN"
+  ],
+  "mission_types": [
+    "REVELATION",
+    "BALAGH",
+    "GUIDANCE",
+    "RELIGIOUS_STEWARDSHIP",
+    "GOVERNANCE",
+    "ADMINISTRATION",
+    "JUSTICE",
+    "LEGAL_REPRESENTATION",
+    "PROTECTION",
+    "DEFENSE",
+    "LAW_ENFORCEMENT",
+    "SECURITY",
+    "EMERGENCY_RESPONSE",
+    "HEALING",
+    "EDUCATION",
+    "RESEARCH",
+    "ENGINEERING",
+    "PUBLIC_SERVICE",
+    "CARE",
+    "SOCIAL_SUPPORT",
+    "GENERAL_CIVIL",
+    "NONE",
+    "UNKNOWN"
+  ],
+  "authority_dimensions": [
+    "MESSAGE_AUTHORITY",
+    "GUIDANCE_AUTHORITY",
+    "ADMIN_AUTHORITY",
+    "LEGAL_AUTHORITY",
+    "ENFORCEMENT_AUTHORITY",
+    "MEDICAL_AUTHORITY",
+    "TECHNICAL_AUTHORITY",
+    "EDUCATIONAL_AUTHORITY",
+    "SOCIAL_AUTHORITY"
+  ],
+  "routing": {
+    "message_guidance": [
+      "ALLAH",
+      "REVELATION",
+      "RASUL_OR_NABI",
+      "BALAGH_OR_GUIDANCE",
+      "HUMAN"
+    ],
+    "religious_stewardship": [
+      "REVELATION_OR_GUIDANCE",
+      "RASUL_OR_NABI",
+      "ULAMA_OR_RELIGIOUS_SCHOLAR",
+      "TEACHING_PRESERVATION_GUIDANCE",
+      "COMMUNITY"
+    ],
+    "civil_governance": [
+      "GUIDANCE_OR_PRINCIPLE",
+      "ULUL_AMRI_OR_GOVERNMENT",
+      "ADMINISTRATION",
+      "STATE_INSTITUTION",
+      "PUBLIC_SERVICE_OR_OFFICER",
+      "HUMAN_OR_CIVIL"
+    ],
+    "rules": {
+      "direct_rasul_to_human_guidance": "VALID",
+      "direct_rasul_to_public_admin_execution_without_civil_interface": "INVALID"
+    }
+  },
+  "matrix": [
+    {
+      "role": "RASUL",
+      "level": "L2",
+      "mandate_sources": ["DIVINE", "REVELATORY"],
+      "mission_types": ["REVELATION", "BALAGH", "GUIDANCE"],
+      "typical_th": 33
+    },
+    {
+      "role": "NABI",
+      "level": "L2",
+      "mandate_sources": ["DIVINE", "REVELATORY"],
+      "mission_types": ["GUIDANCE"],
+      "typical_th": 33
+    },
+    {
+      "role": "ULAMA_KNOWLEDGE",
+      "level": "L3",
+      "mandate_sources": ["RELIGIOUS_STEWARDSHIP"],
+      "mission_types": ["EDUCATION", "GUIDANCE"],
+      "typical_th": 17
+    },
+    {
+      "role": "ULAMA_MISSION_2_ACTIVE",
+      "level": "L3",
+      "mandate_sources": ["RELIGIOUS_STEWARDSHIP"],
+      "mission_types": ["RELIGIOUS_STEWARDSHIP"],
+      "typical_th": 33
+    },
+    {
+      "role": "ULUL_AMRI",
+      "level": "L4",
+      "mandate_sources": ["STATE"],
+      "mission_types": ["GOVERNANCE"],
+      "typical_th": 33
+    },
+    {
+      "role": "JUDGE_ACTIVE_CASE",
+      "level": "L4",
+      "mandate_sources": ["LEGAL", "STATE"],
+      "mission_types": ["JUSTICE"],
+      "typical_th": 33
+    },
+    {
+      "role": "POLICE_ON_DUTY",
+      "level": "L4",
+      "mandate_sources": ["STATE", "LEGAL"],
+      "mission_types": ["PROTECTION", "LAW_ENFORCEMENT"],
+      "typical_th": 33
+    },
+    {
+      "role": "MILITARY_ACTIVE_DUTY",
+      "level": "L4",
+      "mandate_sources": ["STATE"],
+      "mission_types": ["DEFENSE", "SECURITY"],
+      "typical_th": 33
+    },
+    {
+      "role": "ADVOCATE_ACTIVE_CASE",
+      "level": "L4",
+      "mandate_sources": ["LEGAL", "DELEGATED"],
+      "mission_types": ["LEGAL_REPRESENTATION"],
+      "typical_th": 33
+    },
+    {
+      "role": "LAWYER_AS_EXPERT",
+      "level": "L5",
+      "mandate_sources": ["PROFESSIONAL"],
+      "mission_types": ["EDUCATION"],
+      "typical_th": 17
+    },
+    {
+      "role": "DOCTOR_NORMAL",
+      "level": "L5",
+      "mandate_sources": ["PROFESSIONAL"],
+      "mission_types": ["HEALING"],
+      "typical_th": 17
+    },
+    {
+      "role": "DOCTOR_EMERGENCY",
+      "level": "L5",
+      "mandate_sources": ["PROFESSIONAL", "EMERGENCY"],
+      "mission_types": ["HEALING", "EMERGENCY_RESPONSE"],
+      "typical_th": 33
+    },
+    {
+      "role": "PARENT_GUARDIAN",
+      "level": "L5",
+      "mandate_sources": ["SOCIAL"],
+      "mission_types": ["CARE"],
+      "typical_th": 5
+    },
+    {
+      "role": "GENERAL_CITIZEN",
+      "level": "L6",
+      "mandate_sources": ["PERSONAL"],
+      "mission_types": ["GENERAL_CIVIL"],
+      "typical_th": 2.5
+    }
+  ],
+  "th_resolution": {
+    "inputs": [
+      "active_role",
+      "mission_type",
+      "mandate_source",
+      "authority_scope",
+      "knowledge_scope",
+      "event_scope",
+      "emergency_state",
+      "causal_involvement"
+    ],
+    "precedence": [
+      {
+        "when": "special_mission_or_high_mandate_is_active",
+        "th": 33
+      },
+      {
+        "when": "expert_or_knowledge_responsibility_is_active",
+        "th": 17
+      },
+      {
+        "when": "functional_or_social_responsibility_is_active",
+        "th": 5
+      },
+      {
+        "when": "ordinary_human_agency_is_active",
+        "th": 2.5
+      },
+      {
+        "when": "passive_minor_role_is_supported",
+        "th": 1
+      },
+      {
+        "when": "only_trace_causal_contribution_is_supported",
+        "th": "0.x"
+      },
+      {
+        "when": "insufficient_evidence",
+        "th": "UNKNOWN"
+      }
+    ],
+    "requires_reason_codes": true,
+    "requires_evidence_refs": true
+  },
+  "mizan_event_vector": [
+    "ACTOR",
+    "BASE_IDENTITY",
+    "STRUCTURAL_LEVEL",
+    "ACTIVE_ROLE",
+    "MISSION_TYPE",
+    "MANDATE_SOURCE",
+    "AUTHORITY_SCOPE",
+    "KNOWLEDGE_SCOPE",
+    "TH",
+    "SCOPE",
+    "ACCESS_HIZAB",
+    "INTENT",
+    "ACTION",
+    "IMPACT",
+    "CONTEXT",
+    "EVIDENCE",
+    "PROVENANCE",
+    "MIZAN_ANALYSIS",
+    "LEDGER"
+  ],
+  "epistemic_statuses": [
+    "EXPLICIT",
+    "DERIVED",
+    "HISTORICAL",
+    "CLAIMED",
+    "INTERPRETIVE",
+    "FRAMEWORK",
+    "UNKNOWN"
+  ],
+  "invariants": [
+    {
+      "id": "INV-001",
+      "rule": "L0 ALLAH is not numerically scored"
+    },
+    {
+      "id": "INV-002",
+      "rule": "L1 relation/designation/support is not an administrative rank"
+    },
+    {
+      "id": "INV-003",
+      "rule": "TH is event-based and is not a permanent human value"
+    },
+    {
+      "id": "INV-004",
+      "rule": "TH33 does not imply prophetic identity"
+    },
+    {
+      "id": "INV-005",
+      "rule": "TH33 does not merge authority domains"
+    },
+    {
+      "id": "INV-006",
+      "rule": "Civil administrative execution must resolve through a civil mandate path"
+    },
+    {
+      "id": "INV-007",
+      "rule": "Direct Rasul-to-human guidance is distinct from civil administrative execution"
+    },
+    {
+      "id": "INV-008",
+      "rule": "Emergency escalation may increase TH without changing stable identity"
+    },
+    {
+      "id": "INV-009",
+      "rule": "Every TH assignment requires reason codes and evidence provenance"
+    },
+    {
+      "id": "INV-010",
+      "rule": "Unknown evidence remains UNKNOWN; authority and mission must not be fabricated"
+    },
+    {
+      "id": "INV-011",
+      "rule": "Mizan must not claim God's final judgment"
+    },
+    {
+      "id": "INV-012",
+      "rule": "Framework assertions remain distinguishable from explicit textual assertions"
+    }
+  ]
+}
