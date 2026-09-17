@@ -1,0 +1,45 @@
+{
+  "actor_id": "doctor-analytical-example",
+  "active_role": "Doctor",
+  "relationship_domains": ["Professional"],
+  "activities": ["Healing"],
+  "mission_types": ["Healing"],
+  "mandate_sources": ["Professional"],
+  "requested_authority_dimensions": ["Medical"],
+  "route": "ProfessionalService",
+  "mandate_active": false,
+  "emergency_state": false,
+  "expert_knowledge_active": true,
+  "functional_responsibility_active": true,
+  "passive_role": false,
+  "trace_contribution": null,
+  "evidence": [
+    {
+      "id": "E1",
+      "source": "signed-record",
+      "kind": "InstitutionalRecord",
+      "reliability": "Verified",
+      "provenance": [
+        {
+          "source": "hospital-system",
+          "method": "signed-export",
+          "reference": "example:E1"
+        }
+      ]
+    }
+  ],
+  "analytical_factors": {
+    "intent": "Knowing",
+    "impact": "Moderate",
+    "scope": "Individual",
+    "context": "ElevatedDuty",
+    "causal_contribution": "Direct",
+    "evidence_bindings": {
+      "intent": ["E1"],
+      "impact": ["E1"],
+      "scope": ["E1"],
+      "context": ["E1"],
+      "causal_contribution": ["E1"]
+    }
+  }
+}
