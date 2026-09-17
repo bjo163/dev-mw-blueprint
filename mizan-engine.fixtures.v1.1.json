@@ -1,0 +1,119 @@
+{
+  "fixture_version": "1.1.0",
+  "cases": [
+    {
+      "id": "PIPE-012",
+      "name": "Nabi guidance mission",
+      "input": {"actor_id":"nabi","active_role":"Nabi","relationship_domains":["Religious"],"activities":["Guidance"],"mission_types":["Guidance"],"mandate_sources":["Divine","Revelatory"],"requested_authority_dimensions":["Guidance"],"route":"MessageGuidance","mandate_active":true,"emergency_state":false,"expert_knowledge_active":false,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"revelation-2","source":"corpus"}]},
+      "expected": {"level":"L2","th":33.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-013",
+      "name": "Ulul Amri active governance",
+      "input": {"actor_id":"ulul-amri","active_role":"UlulAmri","relationship_domains":["Governance"],"activities":["Administration"],"mission_types":["Governance","Administration"],"mandate_sources":["State"],"requested_authority_dimensions":["Admin"],"route":"CivilGovernance","mandate_active":true,"emergency_state":false,"expert_knowledge_active":false,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"state-mandate-13","source":"state"}]},
+      "expected": {"level":"L4","th":33.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-014",
+      "name": "Government leader private context",
+      "input": {"actor_id":"leader-private","active_role":"GovernmentLeader","relationship_domains":["GeneralCivil"],"activities":["GeneralCivil"],"mission_types":["GeneralCivil"],"mandate_sources":["Personal"],"requested_authority_dimensions":[],"route":"GeneralCivil","mandate_active":false,"emergency_state":false,"expert_knowledge_active":false,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"private-context","source":"event"}]},
+      "expected": {"level":"L6","th":2.5,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-015",
+      "name": "Prosecutor active law enforcement",
+      "input": {"actor_id":"prosecutor","active_role":"Prosecutor","relationship_domains":["Legal","Governance"],"activities":["Justice","LawEnforcement"],"mission_types":["Justice","LawEnforcement"],"mandate_sources":["Legal","State"],"requested_authority_dimensions":["Legal","Enforcement"],"route":"CivilGovernance","mandate_active":true,"emergency_state":false,"expert_knowledge_active":true,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"prosecution-case","source":"court"}]},
+      "expected": {"level":"L4","th":33.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-016",
+      "name": "Military active defense",
+      "input": {"actor_id":"military","active_role":"Military","relationship_domains":["Governance"],"activities":["Defense"],"mission_types":["Defense","Security"],"mandate_sources":["State"],"requested_authority_dimensions":["Enforcement"],"route":"CivilGovernance","mandate_active":true,"emergency_state":false,"expert_knowledge_active":false,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"orders-16","source":"state"}]},
+      "expected": {"level":"L4","th":33.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-017",
+      "name": "Advocate as expert without case mandate",
+      "input": {"actor_id":"advocate-expert","active_role":"Advocate","relationship_domains":["Professional","Legal"],"activities":["Education"],"mission_types":["Education"],"mandate_sources":["Professional"],"requested_authority_dimensions":[],"route":"ProfessionalService","mandate_active":false,"emergency_state":false,"expert_knowledge_active":true,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"legal-expertise","source":"professional"}]},
+      "expected": {"level":"L5","th":17.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-018",
+      "name": "Scientist expert research",
+      "input": {"actor_id":"scientist","active_role":"Scientist","relationship_domains":["Professional"],"activities":["Research"],"mission_types":["Research"],"mandate_sources":["Professional"],"requested_authority_dimensions":["Technical"],"route":"ProfessionalService","mandate_active":false,"emergency_state":false,"expert_knowledge_active":true,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"research-role","source":"institution"}]},
+      "expected": {"level":"L5","th":17.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-019",
+      "name": "Engineer technical responsibility",
+      "input": {"actor_id":"engineer","active_role":"Engineer","relationship_domains":["Professional"],"activities":["Engineering"],"mission_types":["Engineering"],"mandate_sources":["Professional"],"requested_authority_dimensions":["Technical"],"route":"ProfessionalService","mandate_active":false,"emergency_state":false,"expert_knowledge_active":true,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"engineering-role","source":"institution"}]},
+      "expected": {"level":"L5","th":17.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-020",
+      "name": "Teacher expert education",
+      "input": {"actor_id":"teacher","active_role":"Teacher","relationship_domains":["Professional"],"activities":["Education"],"mission_types":["Education"],"mandate_sources":["Professional","Institutional"],"requested_authority_dimensions":["Educational"],"route":"ProfessionalService","mandate_active":false,"emergency_state":false,"expert_knowledge_active":true,"functional_responsibility_active":true,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"teacher-role","source":"school"}]},
+      "expected": {"level":"L5","th":17.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-021",
+      "name": "Parent functional social responsibility",
+      "input": {"actor_id":"parent","active_role":"Parent","relationship_domains":["FamilyKinship"],"activities":["Care"],"mission_types":["Care"],"mandate_sources":["Social"],"requested_authority_dimensions":["Social"],"route":"GeneralCivil","mandate_active":false,"emergency_state":false,"expert_knowledge_active":false,"functional_responsibility_active":true,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"family-role","source":"family"}]},
+      "expected": {"level":"L5","th":5.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-022",
+      "name": "Guardian family corrective guidance",
+      "input": {"actor_id":"guardian","active_role":"Guardian","relationship_domains":["FamilyKinship"],"activities":["CorrectiveGuidance"],"mission_types":["Guidance","Care"],"mandate_sources":["Social"],"requested_authority_dimensions":["Social","Counsel"],"route":"FamilyGuidance","mandate_active":false,"emergency_state":false,"expert_knowledge_active":false,"functional_responsibility_active":true,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"guardian-context","source":"family"}]},
+      "expected": {"level":"L5","th":5.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-023",
+      "name": "General citizen baseline",
+      "input": {"actor_id":"citizen","active_role":"Citizen","relationship_domains":["GeneralCivil"],"activities":["GeneralCivil"],"mission_types":["GeneralCivil"],"mandate_sources":["Personal"],"requested_authority_dimensions":[],"route":"GeneralCivil","mandate_active":false,"emergency_state":false,"expert_knowledge_active":false,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"civil-event","source":"event"}]},
+      "expected": {"level":"L6","th":2.5,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-024",
+      "name": "Passive human role",
+      "input": {"actor_id":"passive-human","active_role":"Human","relationship_domains":["GeneralCivil"],"activities":["GeneralCivil"],"mission_types":["GeneralCivil"],"mandate_sources":["Personal"],"requested_authority_dimensions":[],"route":"GeneralCivil","mandate_active":false,"emergency_state":false,"expert_knowledge_active":false,"functional_responsibility_active":false,"passive_role":true,"trace_contribution":null,"evidence":[{"id":"passive-event","source":"event"}]},
+      "expected": {"level":"L6","th":1.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-025",
+      "name": "Trace causal contributor",
+      "input": {"actor_id":"trace-human","active_role":"Human","relationship_domains":["GeneralCivil"],"activities":["GeneralCivil"],"mission_types":["GeneralCivil"],"mandate_sources":["Personal"],"requested_authority_dimensions":[],"route":"GeneralCivil","mandate_active":false,"emergency_state":false,"expert_knowledge_active":false,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":0.25,"evidence":[{"id":"trace-event","source":"event"}]},
+      "expected": {"level":"L6","th":0.25,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-026",
+      "name": "Doctor cannot claim enforcement authority",
+      "input": {"actor_id":"doctor-boundary","active_role":"Doctor","relationship_domains":["Professional"],"activities":["Healing"],"mission_types":["Healing"],"mandate_sources":["Professional"],"requested_authority_dimensions":["Medical","Enforcement"],"route":"ProfessionalService","mandate_active":false,"emergency_state":false,"expert_knowledge_active":true,"functional_responsibility_active":true,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"doctor-role","source":"hospital"}]},
+      "expected": {"level":"L5","th":17.0,"route_valid":true,"authority_valid":false,"structurally_valid":false}
+    },
+    {
+      "id": "PIPE-027",
+      "name": "Police cannot claim medical authority",
+      "input": {"actor_id":"police-boundary","active_role":"Police","relationship_domains":["Governance","Legal"],"activities":["LawEnforcement"],"mission_types":["LawEnforcement","Protection"],"mandate_sources":["State","Legal"],"requested_authority_dimensions":["Enforcement","Legal","Medical"],"route":"CivilGovernance","mandate_active":true,"emergency_state":false,"expert_knowledge_active":false,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"police-role","source":"state"}]},
+      "expected": {"level":"L4","th":33.0,"route_valid":true,"authority_valid":false,"structurally_valid":false}
+    },
+    {
+      "id": "PIPE-028",
+      "name": "Ulama cannot claim enforcement authority",
+      "input": {"actor_id":"ulama-boundary","active_role":"Ulama","relationship_domains":["Religious"],"activities":["Guidance"],"mission_types":["ReligiousStewardship","Guidance"],"mandate_sources":["ReligiousStewardship"],"requested_authority_dimensions":["Guidance","Enforcement"],"route":"ReligiousStewardship","mandate_active":true,"emergency_state":false,"expert_knowledge_active":true,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"ulama-role","source":"community"}]},
+      "expected": {"level":"L3","th":33.0,"route_valid":true,"authority_valid":false,"structurally_valid":false}
+    },
+    {
+      "id": "PIPE-029",
+      "name": "Knowledge backed cross-level corrective counsel",
+      "input": {"actor_id":"expert-citizen","active_role":"Human","relationship_domains":["CommunitySocial"],"activities":["CorrectiveGuidance"],"mission_types":["Guidance"],"mandate_sources":["Personal"],"requested_authority_dimensions":["Counsel"],"route":"CrossLevelCounsel","mandate_active":false,"emergency_state":false,"expert_knowledge_active":true,"functional_responsibility_active":false,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"expert-evidence","source":"evidence"}]},
+      "expected": {"level":"L6","th":17.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-030",
+      "name": "Caregiver social responsibility",
+      "input": {"actor_id":"caregiver","active_role":"Caregiver","relationship_domains":["FamilyKinship","CommunitySocial"],"activities":["Care"],"mission_types":["Care","SocialSupport"],"mandate_sources":["Social"],"requested_authority_dimensions":["Social"],"route":"GeneralCivil","mandate_active":false,"emergency_state":false,"expert_knowledge_active":false,"functional_responsibility_active":true,"passive_role":false,"trace_contribution":null,"evidence":[{"id":"care-context","source":"care"}]},
+      "expected": {"level":"L5","th":5.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    }
+  ]
+}
