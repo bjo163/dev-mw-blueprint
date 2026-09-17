@@ -73,7 +73,7 @@ pub fn resolve_th(event: &MizanEvent) -> ThResolution {
 mod tests {
     use super::*;
     use mizan_model::{
-        ActiveRole, AuthorityDimension, RelationshipDomain, RouteKind,
+        ActiveRole, AnalyticalFactorsInput, AuthorityDimension, RelationshipDomain, RouteKind,
     };
 
     fn base_event(level: StructuralLevel) -> MizanEvent {
@@ -94,6 +94,7 @@ mod tests {
             passive_role: false,
             trace_contribution: None,
             evidence: vec![],
+            analytical_factors: AnalyticalFactorsInput::default(),
         }
     }
 
