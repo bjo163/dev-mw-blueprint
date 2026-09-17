@@ -120,14 +120,15 @@ fn average_reliability(evidence: &[EvidenceRef]) -> f64 {
     let total: f64 = evidence
         .iter()
         .map(|e| {
-            let base = match e.reliability {
+            let base: f64 = match e.reliability {
                 EvidenceReliability::Unknown => 0.25,
                 EvidenceReliability::Low => 0.40,
                 EvidenceReliability::Medium => 0.60,
                 EvidenceReliability::High => 0.80,
                 EvidenceReliability::Verified => 1.00,
             };
-            (base + if e.provenance.is_empty() { 0.0 } else { 0.05 }).min(1.0)
+            let provenance_bonus: f64 = if e.provenance.is_empty() { 0.0 } else { 0.05 };
+            (base + provenance_bonus).min(1.0_f64)
         })
         .sum();
     total / evidence.len() as f64
