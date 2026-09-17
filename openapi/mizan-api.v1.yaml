@@ -1,11 +1,12 @@
 openapi: 3.1.0
 info:
   title: MoonWitness Mizan API
-  version: 1.0.0
+  version: 1.2.0
   description: >-
-    Deterministic structural/responsibility analysis API. It resolves structural
-    level and authority inside the Rust engine; callers do not supply trusted
-    level or effective authority. It does not compute final divine judgment.
+    Deterministic structural and analytical responsibility API. Structural level,
+    effective authority, TH, evidence assessment, and analytical factor vectors
+    are resolved inside the Rust engine. ARI is a versioned analytical index;
+    it is not a moral worth score, salvation score, legal verdict, or final divine judgment.
 servers:
   - url: http://127.0.0.1:3000
 paths:
@@ -13,7 +14,7 @@ paths:
     get:
       operationId: health
       responses:
-        '200': { description: Service health }
+        '200': { description: Service health and engine versions }
   /api/v1/analyze:
     post:
       operationId: analyze
@@ -23,7 +24,7 @@ paths:
           application/json:
             schema: { $ref: '#/components/schemas/MizanInput' }
       responses:
-        '200': { description: Full Mizan calculation }
+        '200': { description: Full structural, evidence, and analytical calculation }
   /api/v1/evaluate:
     post:
       operationId: evaluate
@@ -33,7 +34,7 @@ paths:
           application/json:
             schema: { $ref: '#/components/schemas/MizanInput' }
       responses:
-        '200': { description: Full Mizan calculation }
+        '200': { description: Full Mizan calculation and optional persisted ledger id }
   /api/v1/resolve-role:
     post:
       operationId: resolveRole
@@ -74,6 +75,26 @@ paths:
             schema: { $ref: '#/components/schemas/MizanInput' }
       responses:
         '200': { description: Routing and structural-boundary validation }
+  /api/v1/assess-evidence:
+    post:
+      operationId: assessEvidence
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MizanInput' }
+      responses:
+        '200': { description: Evidence reliability, provenance, and factor-binding assessment }
+  /api/v1/score-factors:
+    post:
+      operationId: scoreFactors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MizanInput' }
+      responses:
+        '200': { description: Analytical factor vector and optional ARI }
   /openapi.yaml:
     get:
       operationId: openapi
@@ -122,9 +143,60 @@ components:
         evidence:
           type: array
           default: []
+          items: { $ref: '#/components/schemas/EvidenceRef' }
+        analytical_factors:
+          $ref: '#/components/schemas/AnalyticalFactorsInput'
+    EvidenceRef:
+      type: object
+      required: [id, source]
+      properties:
+        id: { type: string }
+        source: { type: string }
+        kind:
+          type: string
+          default: Unknown
+        reliability:
+          type: string
+          enum: [Low, Medium, High, Verified, Unknown]
+          default: Unknown
+        provenance:
+          type: array
+          default: []
           items:
             type: object
-            required: [id, source]
+            required: [source, method]
             properties:
-              id: { type: string }
               source: { type: string }
+              method: { type: string }
+              reference: { type: [string, 'null'] }
+    AnalyticalFactorsInput:
+      type: object
+      properties:
+        intent:
+          type: string
+          enum: [Accidental, Negligent, Knowing, Deliberate, Unknown]
+          default: Unknown
+        impact:
+          type: string
+          enum: [None, Low, Moderate, High, Severe, Unknown]
+          default: Unknown
+        scope:
+          type: string
+          enum: [Individual, Household, Local, Institutional, Regional, National, Transnational, Unknown]
+          default: Unknown
+        context:
+          type: string
+          enum: [Constrained, Normal, ElevatedDuty, Emergency, Unknown]
+          default: Unknown
+        causal_contribution:
+          type: string
+          enum: [Trace, Minor, Material, Major, Direct, Unknown]
+          default: Unknown
+        evidence_bindings:
+          type: object
+          properties:
+            intent: { type: array, items: { type: string }, default: [] }
+            impact: { type: array, items: { type: string }, default: [] }
+            scope: { type: array, items: { type: string }, default: [] }
+            context: { type: array, items: { type: string }, default: [] }
+            causal_contribution: { type: array, items: { type: string }, default: [] }
