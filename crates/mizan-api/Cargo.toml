@@ -18,7 +18,7 @@ mizan-th = { path = "../mizan-th" }
 serde.workspace = true
 serde_json.workspace = true
 sha2 = "0.10"
-sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "postgres", "json", "uuid", "chrono", "migrate"] }
+sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "postgres", "json", "uuid", "chrono", "migrate", "macros"] }
 thiserror.workspace = true
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal"] }
 tracing = "0.1"
