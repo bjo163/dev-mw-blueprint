@@ -1,0 +1,247 @@
+{
+  "fixture_version": "1.0.0",
+  "cases": [
+    {
+      "id": "PIPE-001",
+      "name": "Rasul guidance mission",
+      "input": {
+        "actor_id": "rasul",
+        "active_role": "Rasul",
+        "relationship_domains": ["Religious"],
+        "activities": ["Balagh", "Guidance"],
+        "mission_types": ["Revelation", "Balagh", "Guidance"],
+        "mandate_sources": ["Divine", "Revelatory"],
+        "requested_authority_dimensions": ["Message", "Guidance"],
+        "route": "MessageGuidance",
+        "mandate_active": true,
+        "emergency_state": false,
+        "expert_knowledge_active": false,
+        "functional_responsibility_active": false,
+        "passive_role": false,
+        "trace_contribution": null,
+        "evidence": [{"id":"revelation-1","source":"corpus"}]
+      },
+      "expected": {"level":"L2","th":33.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-002",
+      "name": "Ulama knowledge role",
+      "input": {
+        "actor_id": "ulama-knowledge",
+        "active_role": "Ulama",
+        "relationship_domains": ["Religious"],
+        "activities": ["Education", "Guidance"],
+        "mission_types": ["Education", "Guidance"],
+        "mandate_sources": ["ReligiousStewardship"],
+        "requested_authority_dimensions": ["Guidance", "Educational"],
+        "route": "ReligiousStewardship",
+        "mandate_active": false,
+        "emergency_state": false,
+        "expert_knowledge_active": true,
+        "functional_responsibility_active": false,
+        "passive_role": false,
+        "trace_contribution": null,
+        "evidence": [{"id":"knowledge-1","source":"corpus"}]
+      },
+      "expected": {"level":"L3","th":17.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-003",
+      "name": "Ulama mission 2 active",
+      "input": {
+        "actor_id": "ulama-mission",
+        "active_role": "ReligiousScholar",
+        "relationship_domains": ["Religious"],
+        "activities": ["Guidance"],
+        "mission_types": ["ReligiousStewardship", "Guidance"],
+        "mandate_sources": ["ReligiousStewardship"],
+        "requested_authority_dimensions": ["Guidance"],
+        "route": "ReligiousStewardship",
+        "mandate_active": true,
+        "emergency_state": false,
+        "expert_knowledge_active": true,
+        "functional_responsibility_active": false,
+        "passive_role": false,
+        "trace_contribution": null,
+        "evidence": [{"id":"mission-2","source":"corpus"}]
+      },
+      "expected": {"level":"L3","th":33.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-004",
+      "name": "Police off duty general civil",
+      "input": {
+        "actor_id": "police-off-duty",
+        "active_role": "Police",
+        "relationship_domains": ["GeneralCivil"],
+        "activities": ["GeneralCivil"],
+        "mission_types": ["GeneralCivil"],
+        "mandate_sources": ["Personal"],
+        "requested_authority_dimensions": [],
+        "route": "GeneralCivil",
+        "mandate_active": false,
+        "emergency_state": false,
+        "expert_knowledge_active": false,
+        "functional_responsibility_active": false,
+        "passive_role": false,
+        "trace_contribution": null,
+        "evidence": [{"id":"context-off-duty","source":"event"}]
+      },
+      "expected": {"level":"L6","th":2.5,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-005",
+      "name": "Police on duty enforcement",
+      "input": {
+        "actor_id": "police-on-duty",
+        "active_role": "Police",
+        "relationship_domains": ["Governance", "Legal"],
+        "activities": ["LawEnforcement", "Protection"],
+        "mission_types": ["LawEnforcement", "Protection"],
+        "mandate_sources": ["State", "Legal"],
+        "requested_authority_dimensions": ["Enforcement", "Legal"],
+        "route": "CivilGovernance",
+        "mandate_active": true,
+        "emergency_state": false,
+        "expert_knowledge_active": false,
+        "functional_responsibility_active": false,
+        "passive_role": false,
+        "trace_contribution": null,
+        "evidence": [{"id":"badge-duty","source":"state"}]
+      },
+      "expected": {"level":"L4","th":33.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-006",
+      "name": "Doctor normal practice",
+      "input": {
+        "actor_id": "doctor-normal",
+        "active_role": "Doctor",
+        "relationship_domains": ["Professional"],
+        "activities": ["Healing"],
+        "mission_types": ["Healing"],
+        "mandate_sources": ["Professional"],
+        "requested_authority_dimensions": ["Medical"],
+        "route": "ProfessionalService",
+        "mandate_active": false,
+        "emergency_state": false,
+        "expert_knowledge_active": true,
+        "functional_responsibility_active": true,
+        "passive_role": false,
+        "trace_contribution": null,
+        "evidence": [{"id":"license-1","source":"hospital"}]
+      },
+      "expected": {"level":"L5","th":17.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-007",
+      "name": "Doctor emergency response",
+      "input": {
+        "actor_id": "doctor-emergency",
+        "active_role": "Doctor",
+        "relationship_domains": ["Professional"],
+        "activities": ["Healing"],
+        "mission_types": ["Healing", "EmergencyResponse"],
+        "mandate_sources": ["Professional", "Emergency"],
+        "requested_authority_dimensions": ["Medical"],
+        "route": "ProfessionalService",
+        "mandate_active": true,
+        "emergency_state": true,
+        "expert_knowledge_active": true,
+        "functional_responsibility_active": true,
+        "passive_role": false,
+        "trace_contribution": null,
+        "evidence": [{"id":"emergency-1","source":"hospital"}]
+      },
+      "expected": {"level":"L5","th":33.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-008",
+      "name": "Family corrective guidance",
+      "input": {
+        "actor_id": "child",
+        "active_role": "Human",
+        "relationship_domains": ["FamilyKinship"],
+        "activities": ["CorrectiveGuidance"],
+        "mission_types": ["Guidance"],
+        "mandate_sources": ["Personal"],
+        "requested_authority_dimensions": ["Counsel"],
+        "route": "FamilyGuidance",
+        "mandate_active": false,
+        "emergency_state": false,
+        "expert_knowledge_active": false,
+        "functional_responsibility_active": true,
+        "passive_role": false,
+        "trace_contribution": null,
+        "evidence": [{"id":"Q19:44","source":"Quran"}]
+      },
+      "expected": {"level":"L6","th":5.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-009",
+      "name": "Judge active adjudication",
+      "input": {
+        "actor_id": "judge",
+        "active_role": "Judge",
+        "relationship_domains": ["Legal", "Governance"],
+        "activities": ["Justice"],
+        "mission_types": ["Justice"],
+        "mandate_sources": ["Legal", "State"],
+        "requested_authority_dimensions": ["Legal"],
+        "route": "CivilGovernance",
+        "mandate_active": true,
+        "emergency_state": false,
+        "expert_knowledge_active": true,
+        "functional_responsibility_active": false,
+        "passive_role": false,
+        "trace_contribution": null,
+        "evidence": [{"id":"case-1","source":"court"}]
+      },
+      "expected": {"level":"L4","th":33.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    },
+    {
+      "id": "PIPE-010",
+      "name": "Human corrective counsel cannot claim admin authority",
+      "input": {
+        "actor_id": "human-admin-claim",
+        "active_role": "Human",
+        "relationship_domains": ["FamilyKinship"],
+        "activities": ["CorrectiveGuidance"],
+        "mission_types": ["Guidance"],
+        "mandate_sources": ["Personal"],
+        "requested_authority_dimensions": ["Counsel", "Admin"],
+        "route": "FamilyGuidance",
+        "mandate_active": false,
+        "emergency_state": false,
+        "expert_knowledge_active": false,
+        "functional_responsibility_active": true,
+        "passive_role": false,
+        "trace_contribution": null,
+        "evidence": [{"id":"event-10","source":"event"}]
+      },
+      "expected": {"level":"L6","th":5.0,"route_valid":true,"authority_valid":false,"structurally_valid":false}
+    },
+    {
+      "id": "PIPE-011",
+      "name": "Advocate active legal representation",
+      "input": {
+        "actor_id": "advocate",
+        "active_role": "Advocate",
+        "relationship_domains": ["Legal", "Professional"],
+        "activities": ["Guidance"],
+        "mission_types": ["LegalRepresentation"],
+        "mandate_sources": ["Legal", "Delegated"],
+        "requested_authority_dimensions": ["Legal", "Counsel"],
+        "route": "CivilGovernance",
+        "mandate_active": true,
+        "emergency_state": false,
+        "expert_knowledge_active": true,
+        "functional_responsibility_active": false,
+        "passive_role": false,
+        "trace_contribution": null,
+        "evidence": [{"id":"power-of-attorney","source":"legal"}]
+      },
+      "expected": {"level":"L4","th":33.0,"route_valid":true,"authority_valid":true,"structurally_valid":true}
+    }
+  ]
+}
