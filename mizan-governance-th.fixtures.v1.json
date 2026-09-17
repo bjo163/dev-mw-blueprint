@@ -1,0 +1,194 @@
+{
+  "fixture_version": "1.0.0",
+  "contract": "mizan-governance-th.v1.json",
+  "cases": [
+    {
+      "id": "CASE-001",
+      "name": "Rasul direct guidance to human",
+      "input": {
+        "base_identity": "HUMAN",
+        "active_role": "RASUL",
+        "mission_types": ["BALAGH", "GUIDANCE"],
+        "mandate_sources": ["DIVINE", "REVELATORY"],
+        "event_type": "MESSAGE_GUIDANCE"
+      },
+      "expected": {
+        "structural_level": "L2",
+        "th": 33,
+        "route": "MESSAGE_GUIDANCE",
+        "route_valid": true,
+        "reason_codes": ["DIVINE_COMMISSION_ACTIVE", "GUIDANCE_ROUTE"]
+      }
+    },
+    {
+      "id": "CASE-002",
+      "name": "Ulama Mission 2 active",
+      "input": {
+        "base_identity": "HUMAN",
+        "active_role": "RELIGIOUS_STEWARD",
+        "mission_types": ["RELIGIOUS_STEWARDSHIP"],
+        "mandate_sources": ["RELIGIOUS_STEWARDSHIP"],
+        "event_type": "RELIGIOUS_MISSION"
+      },
+      "expected": {
+        "structural_level": "L3",
+        "th": 33,
+        "route": "RELIGIOUS_STEWARDSHIP",
+        "route_valid": true,
+        "reason_codes": ["MISSION_2_ACTIVE"]
+      }
+    },
+    {
+      "id": "CASE-003",
+      "name": "Police off duty personal activity",
+      "input": {
+        "base_identity": "HUMAN",
+        "professional_role": "POLICE",
+        "active_role": "CITIZEN",
+        "mission_types": ["GENERAL_CIVIL"],
+        "mandate_sources": ["PERSONAL"],
+        "mandate_active": false,
+        "event_type": "PERSONAL_ACTIVITY"
+      },
+      "expected": {
+        "structural_level": "L6",
+        "th": 2.5,
+        "route": "GENERAL_CIVIL",
+        "route_valid": true,
+        "reason_codes": ["NO_ACTIVE_STATE_MANDATE", "GENERAL_HUMAN_BASELINE"]
+      }
+    },
+    {
+      "id": "CASE-004",
+      "name": "Police on duty enforcement",
+      "input": {
+        "base_identity": "HUMAN",
+        "active_role": "POLICE",
+        "mission_types": ["LAW_ENFORCEMENT", "PROTECTION"],
+        "mandate_sources": ["STATE", "LEGAL"],
+        "mandate_active": true,
+        "event_type": "LAW_ENFORCEMENT"
+      },
+      "expected": {
+        "structural_level": "L4",
+        "th": 33,
+        "route": "CIVIL_GOVERNANCE",
+        "route_valid": true,
+        "reason_codes": ["ACTIVE_STATE_MANDATE", "LAW_ENFORCEMENT_EVENT"]
+      }
+    },
+    {
+      "id": "CASE-005",
+      "name": "Doctor normal clinical work",
+      "input": {
+        "base_identity": "HUMAN",
+        "active_role": "DOCTOR",
+        "mission_types": ["HEALING"],
+        "mandate_sources": ["PROFESSIONAL"],
+        "emergency_state": false,
+        "event_type": "CLINICAL_WORK"
+      },
+      "expected": {
+        "structural_level": "L5",
+        "th": 17,
+        "route": "PROFESSIONAL_SERVICE",
+        "route_valid": true,
+        "reason_codes": ["EXPERT_RESPONSIBILITY"]
+      }
+    },
+    {
+      "id": "CASE-006",
+      "name": "Doctor emergency response",
+      "input": {
+        "base_identity": "HUMAN",
+        "active_role": "DOCTOR",
+        "mission_types": ["HEALING", "EMERGENCY_RESPONSE"],
+        "mandate_sources": ["PROFESSIONAL", "EMERGENCY"],
+        "emergency_state": true,
+        "event_type": "EMERGENCY_RESPONSE"
+      },
+      "expected": {
+        "structural_level": "L5",
+        "th": 33,
+        "route": "PROFESSIONAL_SERVICE",
+        "route_valid": true,
+        "reason_codes": ["EXPERT_RESPONSIBILITY", "EMERGENCY_ESCALATION"]
+      }
+    },
+    {
+      "id": "CASE-007",
+      "name": "Judge deciding active case",
+      "input": {
+        "base_identity": "HUMAN",
+        "active_role": "JUDGE",
+        "mission_types": ["JUSTICE"],
+        "mandate_sources": ["LEGAL", "STATE"],
+        "mandate_active": true,
+        "event_type": "ADJUDICATION"
+      },
+      "expected": {
+        "structural_level": "L4",
+        "th": 33,
+        "route": "CIVIL_GOVERNANCE",
+        "route_valid": true,
+        "reason_codes": ["ACTIVE_LEGAL_MANDATE", "JUSTICE_EVENT"]
+      }
+    },
+    {
+      "id": "CASE-008",
+      "name": "Lawyer as legal expert without case mandate",
+      "input": {
+        "base_identity": "HUMAN",
+        "active_role": "LAWYER_AS_EXPERT",
+        "mission_types": ["EDUCATION"],
+        "mandate_sources": ["PROFESSIONAL"],
+        "mandate_active": false,
+        "event_type": "LEGAL_EXPERTISE"
+      },
+      "expected": {
+        "structural_level": "L5",
+        "th": 17,
+        "route": "PROFESSIONAL_SERVICE",
+        "route_valid": true,
+        "reason_codes": ["EXPERT_RESPONSIBILITY", "NO_ACTIVE_CASE_MANDATE"]
+      }
+    },
+    {
+      "id": "CASE-009",
+      "name": "Lawyer holding active representation mandate",
+      "input": {
+        "base_identity": "HUMAN",
+        "active_role": "ADVOCATE_ACTIVE_MANDATE",
+        "mission_types": ["LEGAL_REPRESENTATION"],
+        "mandate_sources": ["LEGAL", "DELEGATED"],
+        "mandate_active": true,
+        "event_type": "LEGAL_REPRESENTATION"
+      },
+      "expected": {
+        "structural_level": "L4",
+        "th": 33,
+        "route": "CIVIL_GOVERNANCE",
+        "route_valid": true,
+        "reason_codes": ["ACTIVE_LEGAL_MANDATE", "DELEGATED_REPRESENTATION"]
+      }
+    },
+    {
+      "id": "CASE-010",
+      "name": "General citizen ordinary civil activity",
+      "input": {
+        "base_identity": "HUMAN",
+        "active_role": "CITIZEN",
+        "mission_types": ["GENERAL_CIVIL"],
+        "mandate_sources": ["PERSONAL"],
+        "event_type": "GENERAL_CIVIL"
+      },
+      "expected": {
+        "structural_level": "L6",
+        "th": 2.5,
+        "route": "GENERAL_CIVIL",
+        "route_valid": true,
+        "reason_codes": ["GENERAL_HUMAN_BASELINE"]
+      }
+    }
+  ]
+}
