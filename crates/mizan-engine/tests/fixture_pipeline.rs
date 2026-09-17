@@ -26,11 +26,19 @@ struct Expected {
 
 #[test]
 fn full_pipeline_fixtures_match_contract() {
-    let raw = include_str!("../../../mizan-engine.fixtures.v1.json");
-    let fixtures: FixtureSet = serde_json::from_str(raw).expect("valid fixture JSON");
-    assert!(fixtures.cases.len() >= 10, "baseline requires >= 10 pipeline cases");
+    let baseline: FixtureSet = serde_json::from_str(include_str!("../../../mizan-engine.fixtures.v1.json"))
+        .expect("valid baseline fixture JSON");
+    let extension: FixtureSet = serde_json::from_str(include_str!("../../../mizan-engine.fixtures.v1.1.json"))
+        .expect("valid extension fixture JSON");
 
-    for case in fixtures.cases {
+    let cases: Vec<FixtureCase> = baseline
+        .cases
+        .into_iter()
+        .chain(extension.cases)
+        .collect();
+    assert!(cases.len() >= 30, "baseline requires >= 30 pipeline cases");
+
+    for case in cases {
         let result = evaluate_input(&case.input);
         let actual_level = format!("{:?}", result.resolved_event.level);
         let actual_th = result
