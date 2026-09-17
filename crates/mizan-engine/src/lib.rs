@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 pub struct MizanCalculation {
     pub resolved_event: MizanEvent,
     pub result: MizanResult,
+    pub th_value: Option<f64>,
     pub authority_valid: bool,
     pub denied_authorities: Vec<AuthorityDimension>,
     pub structurally_valid: bool,
@@ -63,6 +64,7 @@ pub fn evaluate_input(input: &MizanInput) -> MizanCalculation {
     };
 
     let result = evaluate(&event);
+    let th_value = result.th.numeric_value();
     let evidence_sufficient = !event.evidence.is_empty();
     let structurally_valid = authority.valid && result.routing.valid;
 
@@ -83,6 +85,7 @@ pub fn evaluate_input(input: &MizanInput) -> MizanCalculation {
     MizanCalculation {
         resolved_event: event,
         result,
+        th_value,
         authority_valid: authority.valid,
         denied_authorities: authority.denied,
         structurally_valid,
@@ -125,6 +128,7 @@ mod tests {
         let result = evaluate_input(&family_input());
         assert_eq!(result.resolved_event.level, StructuralLevel::L6);
         assert_eq!(result.result.th, ThClass::Functional5);
+        assert_eq!(result.th_value, Some(5.0));
         assert!(result.result.routing.valid);
         assert!(result.authority_valid);
         assert!(result.structurally_valid);
@@ -165,6 +169,7 @@ mod tests {
         let result = evaluate_input(&input);
         assert_eq!(result.resolved_event.level, StructuralLevel::L4);
         assert_eq!(result.result.th, ThClass::SpecialMission33);
+        assert_eq!(result.th_value, Some(33.0));
         assert!(result.structurally_valid);
     }
 
@@ -190,6 +195,7 @@ mod tests {
         let result = evaluate_input(&input);
         assert_eq!(result.resolved_event.level, StructuralLevel::L5);
         assert_eq!(result.result.th, ThClass::SpecialMission33);
+        assert_eq!(result.th_value, Some(33.0));
         assert!(result.structurally_valid);
     }
 }
