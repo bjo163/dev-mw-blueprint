@@ -1,0 +1,130 @@
+openapi: 3.1.0
+info:
+  title: MoonWitness Mizan API
+  version: 1.0.0
+  description: >-
+    Deterministic structural/responsibility analysis API. It resolves structural
+    level and authority inside the Rust engine; callers do not supply trusted
+    level or effective authority. It does not compute final divine judgment.
+servers:
+  - url: http://127.0.0.1:3000
+paths:
+  /health:
+    get:
+      operationId: health
+      responses:
+        '200': { description: Service health }
+  /api/v1/analyze:
+    post:
+      operationId: analyze
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MizanInput' }
+      responses:
+        '200': { description: Full Mizan calculation }
+  /api/v1/evaluate:
+    post:
+      operationId: evaluate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MizanInput' }
+      responses:
+        '200': { description: Full Mizan calculation }
+  /api/v1/resolve-role:
+    post:
+      operationId: resolveRole
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MizanInput' }
+      responses:
+        '200': { description: Engine-resolved structural level }
+  /api/v1/resolve-authority:
+    post:
+      operationId: resolveAuthority
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MizanInput' }
+      responses:
+        '200': { description: Engine-resolved and denied authority dimensions }
+  /api/v1/resolve-th:
+    post:
+      operationId: resolveTh
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MizanInput' }
+      responses:
+        '200': { description: Event responsibility weight }
+  /api/v1/validate-route:
+    post:
+      operationId: validateRoute
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MizanInput' }
+      responses:
+        '200': { description: Routing and structural-boundary validation }
+  /openapi.yaml:
+    get:
+      operationId: openapi
+      responses:
+        '200': { description: This OpenAPI document }
+components:
+  schemas:
+    MizanInput:
+      type: object
+      required:
+        - actor_id
+        - active_role
+        - relationship_domains
+        - activities
+        - mission_types
+        - mandate_sources
+        - route
+      properties:
+        actor_id: { type: string }
+        active_role: { type: string }
+        relationship_domains:
+          type: array
+          items: { type: string }
+        activities:
+          type: array
+          items: { type: string }
+        mission_types:
+          type: array
+          items: { type: string }
+        mandate_sources:
+          type: array
+          items: { type: string }
+        requested_authority_dimensions:
+          type: array
+          items: { type: string }
+          default: []
+        route: { type: string }
+        mandate_active: { type: boolean, default: false }
+        emergency_state: { type: boolean, default: false }
+        expert_knowledge_active: { type: boolean, default: false }
+        functional_responsibility_active: { type: boolean, default: false }
+        passive_role: { type: boolean, default: false }
+        trace_contribution:
+          type: [number, 'null']
+          minimum: 0
+        evidence:
+          type: array
+          default: []
+          items:
+            type: object
+            required: [id, source]
+            properties:
+              id: { type: string }
+              source: { type: string }
