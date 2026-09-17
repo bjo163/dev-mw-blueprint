@@ -164,10 +164,133 @@ pub enum RouteKind {
     GeneralCivil,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub enum EvidenceKind {
+    Observation,
+    Document,
+    Testimony,
+    Instrument,
+    Corpus,
+    InstitutionalRecord,
+    DigitalRecord,
+    #[default]
+    Unknown,
+    Other(String),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub enum EvidenceReliability {
+    Low,
+    Medium,
+    High,
+    Verified,
+    #[default]
+    Unknown,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ProvenanceStep {
+    pub source: String,
+    pub method: String,
+    #[serde(default)]
+    pub reference: Option<String>,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct EvidenceRef {
     pub id: String,
     pub source: String,
+    #[serde(default)]
+    pub kind: EvidenceKind,
+    #[serde(default)]
+    pub reliability: EvidenceReliability,
+    #[serde(default)]
+    pub provenance: Vec<ProvenanceStep>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub enum IntentState {
+    Accidental,
+    Negligent,
+    Knowing,
+    Deliberate,
+    #[default]
+    Unknown,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub enum ImpactLevel {
+    None,
+    Low,
+    Moderate,
+    High,
+    Severe,
+    #[default]
+    Unknown,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub enum ScopeLevel {
+    Individual,
+    Household,
+    Local,
+    Institutional,
+    Regional,
+    National,
+    Transnational,
+    #[default]
+    Unknown,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub enum ContextState {
+    Constrained,
+    Normal,
+    ElevatedDuty,
+    Emergency,
+    #[default]
+    Unknown,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub enum CausalContributionLevel {
+    Trace,
+    Minor,
+    Material,
+    Major,
+    Direct,
+    #[default]
+    Unknown,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub struct FactorEvidenceBindings {
+    #[serde(default)]
+    pub intent: Vec<String>,
+    #[serde(default)]
+    pub impact: Vec<String>,
+    #[serde(default)]
+    pub scope: Vec<String>,
+    #[serde(default)]
+    pub context: Vec<String>,
+    #[serde(default)]
+    pub causal_contribution: Vec<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub struct AnalyticalFactorsInput {
+    #[serde(default)]
+    pub intent: IntentState,
+    #[serde(default)]
+    pub impact: ImpactLevel,
+    #[serde(default)]
+    pub scope: ScopeLevel,
+    #[serde(default)]
+    pub context: ContextState,
+    #[serde(default)]
+    pub causal_contribution: CausalContributionLevel,
+    #[serde(default)]
+    pub evidence_bindings: FactorEvidenceBindings,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -199,6 +322,8 @@ pub struct MizanInput {
     pub trace_contribution: Option<f64>,
     #[serde(default)]
     pub evidence: Vec<EvidenceRef>,
+    #[serde(default)]
+    pub analytical_factors: AnalyticalFactorsInput,
 }
 
 /// Resolved event consumed by TH/routing. `level` and
@@ -221,6 +346,7 @@ pub struct MizanEvent {
     pub passive_role: bool,
     pub trace_contribution: Option<f64>,
     pub evidence: Vec<EvidenceRef>,
+    pub analytical_factors: AnalyticalFactorsInput,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
