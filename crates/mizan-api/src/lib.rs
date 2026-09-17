@@ -8,6 +8,8 @@ use axum::{
 use chrono::Utc;
 use mizan_authority::resolve_authority;
 use mizan_engine::{evaluate_input, MizanCalculation};
+use mizan_evidence::{assess_evidence, EvidenceAssessment};
+use mizan_factors::{FactorAssessment, ARI_CALIBRATION_VERSION};
 use mizan_model::{AuthorityDimension, MizanInput, ReasonCode, StructuralLevel, ThClass};
 use mizan_role::resolve_level;
 use serde::Serialize;
@@ -18,8 +20,8 @@ use thiserror::Error;
 use uuid::Uuid;
 
 pub const ENGINE_VERSION: &str = env!("CARGO_PKG_VERSION");
-pub const ONTOLOGY_VERSION: &str = "1.1";
-pub const CONTRACT_VERSION: &str = "1.1.0";
+pub const ONTOLOGY_VERSION: &str = "1.2";
+pub const CONTRACT_VERSION: &str = "1.2.0";
 const OPENAPI_YAML: &str = include_str!("../../../openapi/mizan-api.v1.yaml");
 
 #[derive(Clone, Default)]
@@ -64,14 +66,18 @@ impl AppState {
         let result_json = serde_json::to_value(calculation)?;
         let input_hash = hash_json(&input_json)?;
         let result_hash = hash_json(&result_json)?;
+        let evidence_strength = format!("{:?}", calculation.evidence_assessment.strength);
+        let ari_value = calculation.factor_assessment.analytical_responsibility_index;
+        let ari_calibration = calculation.factor_assessment.calibration_version.clone();
 
         sqlx::query(
             r#"
             INSERT INTO mizan_ledger (
                 record_id, occurred_at, actor_id, input_json, result_json,
                 input_hash, result_hash, ontology_version, contract_version,
-                engine_version
-            ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+                engine_version, evidence_strength, analytical_responsibility_index,
+                ari_calibration_version, ari_evidence_sufficient
+            ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
             "#,
         )
         .bind(record_id)
@@ -84,6 +90,10 @@ impl AppState {
         .bind(ONTOLOGY_VERSION)
         .bind(CONTRACT_VERSION)
         .bind(ENGINE_VERSION)
+        .bind(evidence_strength)
+        .bind(ari_value)
+        .bind(ari_calibration)
+        .bind(calculation.analytical_index_evidence_sufficient)
         .execute(pool)
         .await?;
 
@@ -132,6 +142,7 @@ pub struct HealthResponse {
     pub engine_version: &'static str,
     pub ontology_version: &'static str,
     pub contract_version: &'static str,
+    pub ari_calibration_version: &'static str,
     pub persistence_enabled: bool,
 }
 
@@ -172,6 +183,17 @@ pub struct RouteResponse {
     pub reason_codes: Vec<ReasonCode>,
 }
 
+#[derive(Debug, Serialize)]
+pub struct EvidenceResponse {
+    pub assessment: EvidenceAssessment,
+}
+
+#[derive(Debug, Serialize)]
+pub struct FactorResponse {
+    pub assessment: FactorAssessment,
+    pub evidence_sufficient: bool,
+}
+
 pub fn app(state: AppState) -> Router {
     Router::new()
         .route("/health", get(health))
@@ -182,6 +204,8 @@ pub fn app(state: AppState) -> Router {
         .route("/api/v1/resolve-authority", post(resolve_authority_handler))
         .route("/api/v1/resolve-th", post(resolve_th_handler))
         .route("/api/v1/validate-route", post(validate_route_handler))
+        .route("/api/v1/assess-evidence", post(assess_evidence_handler))
+        .route("/api/v1/score-factors", post(score_factors_handler))
         .with_state(state)
 }
 
@@ -193,6 +217,7 @@ async fn health(State(state): State<AppState>) -> Json<HealthResponse> {
         engine_version: ENGINE_VERSION,
         ontology_version: ONTOLOGY_VERSION,
         contract_version: CONTRACT_VERSION,
+        ari_calibration_version: ARI_CALIBRATION_VERSION,
         persistence_enabled: state.persistence_enabled(),
     })
 }
@@ -266,6 +291,20 @@ async fn validate_route_handler(Json(input): Json<MizanInput>) -> Json<RouteResp
     })
 }
 
+async fn assess_evidence_handler(Json(input): Json<MizanInput>) -> Json<EvidenceResponse> {
+    Json(EvidenceResponse {
+        assessment: assess_evidence(&input),
+    })
+}
+
+async fn score_factors_handler(Json(input): Json<MizanInput>) -> Json<FactorResponse> {
+    let calculation = evaluate_input(&input);
+    Json(FactorResponse {
+        assessment: calculation.factor_assessment,
+        evidence_sufficient: calculation.analytical_index_evidence_sufficient,
+    })
+}
+
 fn hash_json(value: &Value) -> Result<String, serde_json::Error> {
     let bytes = serde_json::to_vec(value)?;
     let digest = Sha256::digest(bytes);
@@ -275,7 +314,10 @@ fn hash_json(value: &Value) -> Result<String, serde_json::Error> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use axum::{body::{to_bytes, Body}, http::Request};
+    use axum::{
+        body::{to_bytes, Body},
+        http::Request,
+    };
     use tower::ServiceExt;
 
     fn family_payload(extra_authority: Option<&str>) -> Value {
@@ -299,6 +341,50 @@ mod tests {
             "passive_role": false,
             "trace_contribution": null,
             "evidence": [{"id":"Q19:44","source":"Quran"}]
+        })
+    }
+
+    fn analytical_payload() -> Value {
+        serde_json::json!({
+            "actor_id": "doctor-analytical",
+            "active_role": "Doctor",
+            "relationship_domains": ["Professional"],
+            "activities": ["Healing"],
+            "mission_types": ["Healing"],
+            "mandate_sources": ["Professional"],
+            "requested_authority_dimensions": ["Medical"],
+            "route": "ProfessionalService",
+            "mandate_active": false,
+            "emergency_state": false,
+            "expert_knowledge_active": true,
+            "functional_responsibility_active": true,
+            "passive_role": false,
+            "trace_contribution": null,
+            "evidence": [{
+                "id":"E1",
+                "source":"signed-record",
+                "kind":"InstitutionalRecord",
+                "reliability":"Verified",
+                "provenance":[{
+                    "source":"hospital-system",
+                    "method":"signed-export",
+                    "reference":"sha256:abc"
+                }]
+            }],
+            "analytical_factors": {
+                "intent":"Knowing",
+                "impact":"Moderate",
+                "scope":"Individual",
+                "context":"ElevatedDuty",
+                "causal_contribution":"Direct",
+                "evidence_bindings": {
+                    "intent":["E1"],
+                    "impact":["E1"],
+                    "scope":["E1"],
+                    "context":["E1"],
+                    "causal_contribution":["E1"]
+                }
+            }
         })
     }
 
@@ -331,6 +417,8 @@ mod tests {
         let value: Value = serde_json::from_slice(&bytes).unwrap();
         assert_eq!(value["status"], "ok");
         assert_eq!(value["persistence_enabled"], false);
+        assert_eq!(value["ontology_version"], "1.2");
+        assert_eq!(value["ari_calibration_version"], "ARI-0.1.0");
     }
 
     #[tokio::test]
@@ -340,6 +428,7 @@ mod tests {
         assert_eq!(value["calculation"]["resolved_event"]["level"], "L6");
         assert_eq!(value["calculation"]["th_value"], 5.0);
         assert_eq!(value["calculation"]["structurally_valid"], true);
+        assert!(value["calculation"]["factor_assessment"]["analytical_responsibility_index"].is_null());
         assert_eq!(value["persisted"], false);
     }
 
@@ -373,5 +462,23 @@ mod tests {
         let (status, value) = post_json("/api/v1/resolve-role", payload).await;
         assert_eq!(status, StatusCode::OK);
         assert_eq!(value["level"], "L4");
+    }
+
+    #[tokio::test]
+    async fn evidence_endpoint_reports_verified_complete_provenance() {
+        let (status, value) = post_json("/api/v1/assess-evidence", analytical_payload()).await;
+        assert_eq!(status, StatusCode::OK);
+        assert_eq!(value["assessment"]["strength"], "Verified");
+        assert_eq!(value["assessment"]["provenance_complete"], true);
+        assert_eq!(value["assessment"]["sufficient_for_analytical_index"], true);
+    }
+
+    #[tokio::test]
+    async fn factor_endpoint_returns_evidence_supported_ari() {
+        let (status, value) = post_json("/api/v1/score-factors", analytical_payload()).await;
+        assert_eq!(status, StatusCode::OK);
+        assert!(value["assessment"]["analytical_responsibility_index"].as_f64().is_some());
+        assert_eq!(value["assessment"]["final_moral_or_divine_verdict"], false);
+        assert_eq!(value["evidence_sufficient"], true);
     }
 }
