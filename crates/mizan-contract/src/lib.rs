@@ -15,6 +15,7 @@ pub enum ContractError {
 pub enum ContractKind {
     Base,
     Extension,
+    AnalyticalExtension,
 }
 
 #[derive(Debug, Clone)]
@@ -31,16 +32,23 @@ impl Contract {
             .and_then(Value::as_str)
             .ok_or(ContractError::MissingField("schema_version"))?;
 
-        if version != "1.0.0" && version != "1.1.0" {
+        if version != "1.0.0" && version != "1.1.0" && version != "1.2.0" {
             return Err(ContractError::UnsupportedVersion(version.to_owned()));
         }
 
-        let kind = if raw.get("extends").is_some() {
-            validate_extension(&raw)?;
-            ContractKind::Extension
-        } else {
-            validate_base(&raw)?;
-            ContractKind::Base
+        let kind = match version {
+            "1.2.0" => {
+                validate_analytical_extension(&raw)?;
+                ContractKind::AnalyticalExtension
+            }
+            _ if raw.get("extends").is_some() => {
+                validate_extension(&raw)?;
+                ContractKind::Extension
+            }
+            _ => {
+                validate_base(&raw)?;
+                ContractKind::Base
+            }
         };
 
         Ok(Self { raw, kind })
@@ -81,6 +89,21 @@ fn validate_extension(raw: &Value) -> Result<(), ContractError> {
     Ok(())
 }
 
+fn validate_analytical_extension(raw: &Value) -> Result<(), ContractError> {
+    for field in [
+        "extends",
+        "evidence_model",
+        "analytical_factors",
+        "ari_calibration",
+        "invariants_add",
+    ] {
+        if raw.get(field).is_none() {
+            return Err(ContractError::MissingField(field));
+        }
+    }
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -103,5 +126,19 @@ mod tests {
         let contract = Contract::from_json_str(input).unwrap();
         assert_eq!(contract.kind(), ContractKind::Extension);
         assert_eq!(contract.extends(), Some("base.json"));
+    }
+
+    #[test]
+    fn recognizes_analytical_extension_contract() {
+        let input = r#"{
+          "schema_version":"1.2.0",
+          "extends":"v1.1.json",
+          "evidence_model":{},
+          "analytical_factors":{},
+          "ari_calibration":{},
+          "invariants_add":[]
+        }"#;
+        let contract = Contract::from_json_str(input).unwrap();
+        assert_eq!(contract.kind(), ContractKind::AnalyticalExtension);
     }
 }
