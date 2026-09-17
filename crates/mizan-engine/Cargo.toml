@@ -11,6 +11,8 @@ mizan-role = { path = "../mizan-role" }
 mizan-authority = { path = "../mizan-authority" }
 mizan-th = { path = "../mizan-th" }
 mizan-routing = { path = "../mizan-routing" }
+mizan-evidence = { path = "../mizan-evidence" }
+mizan-factors = { path = "../mizan-factors" }
 serde.workspace = true
 
 [dev-dependencies]
