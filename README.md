@@ -22,9 +22,10 @@ Operational ontology for L0–L6, active role vs stable identity, Mission #1 / M
 - `mizan-governance-th.v1.1.json` — FAMILY/KINSHIP + NASIHAH/CORRECTIVE extension
 - `mizan-governance-th.fixtures.v1.json` — governance/TH baseline fixtures
 - `mizan-governance-th.fixtures.v1.1.json` — family/nasihah extension fixtures
-- `mizan-engine.fixtures.v1.json` — executable full-pipeline fixtures
+- `mizan-engine.fixtures.v1.json` — executable baseline pipeline fixtures
+- `mizan-engine.fixtures.v1.1.json` — extended role/boundary fixtures
 
-The Rust contract test validates both the v1 base contract and the v1.1 extension contract.
+The Rust contract tests validate both the v1 base contract and the v1.1 extension contract.
 
 ### 4. FAMILY / KINSHIP + NASIHAH
 
@@ -58,9 +59,10 @@ crates/
   mizan-engine/       # full orchestration / Mizan calculation
   mizan-ledger/       # evidence/provenance result record
   mizan-cli/          # raw JSON MizanInput CLI
+  mizan-api/          # Axum HTTP adapter + PostgreSQL immutable ledger
 ```
 
-The public execution flow is now:
+The public execution flow is:
 
 ```text
 MizanInput
@@ -144,7 +146,7 @@ RELEVANT KNOWLEDGE/EVIDENCE -> COUNSEL -> HIGHER/LOWER/PEER ROLE
 
 Direct guidance is not the same thing as direct civil administrative execution. Family seniority is not absolute authority, and counsel does not transfer administrative or enforcement power.
 
-## Run
+## CLI
 
 Run all tests:
 
@@ -158,36 +160,109 @@ Evaluate a raw input:
 cargo run -p mizan-cli -- examples/family-corrective-guidance.json
 ```
 
-Or:
+The CLI returns a complete `MizanCalculation` and exits non-zero when structural/authority routing validation fails.
 
-```bash
-cat examples/family-corrective-guidance.json | cargo run -p mizan-cli
+## HTTP API
+
+The API is an adapter around the same Rust engine; it does not duplicate Mizan rules.
+
+```text
+GET  /health
+GET  /openapi.yaml
+POST /api/v1/analyze
+POST /api/v1/evaluate
+POST /api/v1/resolve-role
+POST /api/v1/resolve-authority
+POST /api/v1/resolve-th
+POST /api/v1/validate-route
 ```
 
-The CLI returns a complete `MizanCalculation` and exits non-zero when structural/authority routing validation fails.
+OpenAPI source: `openapi/mizan-api.v1.yaml`.
+
+Run without persistence:
+
+```bash
+cargo run -p mizan-api
+```
+
+Run with PostgreSQL ledger:
+
+```bash
+export DATABASE_URL=postgres://postgres:postgres@localhost:5432/mizan
+cargo run -p mizan-api
+```
+
+When `DATABASE_URL` is present the API automatically runs embedded SQLx migrations and persists successful `/analyze` and `/evaluate` calls with:
+
+```text
+record_id
+occurred_at
+actor_id
+input_json
+result_json
+input_hash
+result_hash
+ontology_version
+contract_version
+engine_version
+```
+
+This persistence is an audit ledger for the engine output; it does not represent final divine judgment.
+
+## Docker / Local Stack
+
+```bash
+docker compose up --build
+```
+
+This starts:
+
+```text
+PostgreSQL :5432
+Mizan API  :3000
+```
+
+Copy `.env.example` when running services directly outside Compose.
 
 ## Automated Coverage
 
-`mizan-engine.fixtures.v1.json` currently exercises the full pipeline for:
+The full engine fixture suite now contains **30 cases**, including:
 
-- Rasul guidance mission
-- Ulama knowledge role
-- Ulama Mission #2 active
-- Police off duty
-- Police on duty
-- Doctor normal practice
-- Doctor emergency response
-- family corrective guidance
-- Judge active adjudication
-- rejected human admin-authority claim
-- Advocate active legal representation
+- Rasul and Nabi guidance missions
+- Ulama knowledge role and Mission #2
+- Ulul Amri / government context
+- Police off-duty and on-duty
+- Prosecutor and Judge
+- Military defense
+- Advocate active mandate and expert-only context
+- Doctor normal and emergency response
+- Scientist, Engineer, Teacher
+- Parent, Guardian, Caregiver
+- general citizen, passive role, trace contribution
+- family and cross-level corrective counsel
+- rejected Human -> Admin escalation
+- rejected Doctor -> Enforcement escalation
+- rejected Police -> Medical escalation
+- rejected Ulama -> Enforcement escalation
 
-GitHub Actions at `.github/workflows/rust-ci.yml` runs `cargo test --workspace --all-targets` on pushes to `main` and pull requests.
+API tests cover health, raw-input evaluation, role resolution, authority-boundary rejection, and PostgreSQL persistence.
+
+GitHub Actions at `.github/workflows/rust-ci.yml` starts PostgreSQL and runs:
+
+```bash
+cargo test --workspace --all-targets
+```
+
+on pushes to `main` and pull requests.
 
 ## Current Baseline
 
 **Ontology:** v1.1 conceptual baseline  
 **Governance/TH contract:** v1 base + v1.1 extension  
-**Executable pipeline:** role + authority + TH + routing + fixture-driven calculation  
+**Executable pipeline:** role + authority + TH + routing + 30 fixture cases  
+**HTTP:** Axum API v1  
+**Ledger:** PostgreSQL + input/result hashes + version metadata  
+**OpenAPI:** `openapi/mizan-api.v1.yaml`  
+**Local delivery:** Docker Compose  
 **Canonical engine:** Rust  
 **Branch:** `main`
