@@ -18,7 +18,7 @@ pub struct FactorVector {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct FactorAssessment {
-    pub calibration_version: &'static str,
+    pub calibration_version: String,
     pub vector: FactorVector,
     pub complete: bool,
     pub analytical_responsibility_index: Option<f64>,
@@ -68,7 +68,7 @@ pub fn assess_factors(th: &ThClass, factors: &AnalyticalFactorsInput) -> FactorA
     };
 
     FactorAssessment {
-        calibration_version: ARI_CALIBRATION_VERSION,
+        calibration_version: ARI_CALIBRATION_VERSION.into(),
         vector,
         complete,
         analytical_responsibility_index,
