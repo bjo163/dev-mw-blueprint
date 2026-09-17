@@ -54,6 +54,50 @@ Additional fixtures:
 
 `mizan-governance-th.fixtures.v1.1.json`
 
+### 5. Implementation Decision — Rust
+
+`ADR-001-MIZAN-ENGINE-RUST.md`
+
+The canonical executable Mizan core is implemented in **Rust**.
+
+Technology boundary:
+
+```text
+RUST       = canonical deterministic Mizan engine
+JSON       = machine-readable contracts / fixtures
+MARKDOWN   = research + human-readable specification
+TYPESCRIPT = optional API / UI / client adapters
+             NOT a second independent rule authority
+```
+
+Recommended Rust workspace:
+
+```text
+crates/
+  mizan-model/
+  mizan-contract/
+  mizan-th/
+  mizan-routing/
+  mizan-engine/
+  mizan-ledger/
+  mizan-cli/
+```
+
+The core implementation keeps these dimensions distinct:
+
+```text
+LEVEL    = structural position/domain
+DOMAIN   = relationship/context
+ACTIVITY = what is being done
+ROLE     = event-active function
+MISSION  = entrusted objective
+MANDATE  = source/scope of responsibility
+AUTHORITY = permitted authority dimension
+TH       = event responsibility weight
+```
+
+`CORRECTIVE_GUIDANCE` is an **activity**, not a structural level.
+
 ---
 
 ## Fundamental Rule
@@ -64,6 +108,8 @@ WEIGHT ≠ STATUS
 MISSION ≠ IDENTITY
 AUTHORITY ≠ DIVINE STATUS
 SAME TH ≠ SAME POSITION
+CORRECTIVE ≠ LEVEL
+COUNSEL_AUTHORITY ≠ ADMIN_AUTHORITY
 ```
 
 TH is an **event responsibility weight**, not human worth or divine status.
@@ -105,4 +151,5 @@ Family seniority is not absolute authority, and counsel does not transfer admini
 
 **Ontology:** v1.1 conceptual baseline  
 **Governance/TH contract:** v1.1 extension over v1.0  
+**Canonical engine:** Rust  
 **Branch:** `main`
