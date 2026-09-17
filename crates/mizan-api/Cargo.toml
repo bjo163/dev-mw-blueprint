@@ -1,0 +1,29 @@
+[package]
+name = "mizan-api"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+axum = "0.8"
+chrono = { version = "0.4", features = ["serde"] }
+hex = "0.4"
+mizan-authority = { path = "../mizan-authority" }
+mizan-engine = { path = "../mizan-engine" }
+mizan-model = { path = "../mizan-model" }
+mizan-role = { path = "../mizan-role" }
+mizan-routing = { path = "../mizan-routing" }
+mizan-th = { path = "../mizan-th" }
+serde.workspace = true
+serde_json.workspace = true
+sha2 = "0.10"
+sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "postgres", "json", "uuid", "chrono", "migrate"] }
+thiserror.workspace = true
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
