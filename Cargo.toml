@@ -6,6 +6,8 @@ members = [
   "crates/mizan-th",
   "crates/mizan-routing",
   "crates/mizan-engine",
+  "crates/mizan-ledger",
+  "crates/mizan-cli",
 ]
 
 [workspace.package]
