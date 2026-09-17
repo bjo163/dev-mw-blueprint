@@ -1,12 +1,11 @@
 {
   "actor_id": "example-child",
-  "level": "L6",
   "active_role": "Human",
   "relationship_domains": ["FamilyKinship"],
   "activities": ["CorrectiveGuidance"],
   "mission_types": ["Guidance"],
   "mandate_sources": ["Personal"],
-  "authority_dimensions": ["Counsel"],
+  "requested_authority_dimensions": ["Counsel"],
   "route": "FamilyGuidance",
   "mandate_active": false,
   "emergency_state": false,
@@ -14,5 +13,10 @@
   "functional_responsibility_active": true,
   "passive_role": false,
   "trace_contribution": null,
-  "evidence": []
+  "evidence": [
+    {
+      "id": "Q19:44",
+      "source": "Quran"
+    }
+  ]
 }
