@@ -1,14 +1,14 @@
 use mizan_authority::resolve_authority;
-use mizan_model::{
-    AuthorityDimension, MizanEvent, MizanInput, MizanResult, ReasonCode,
-};
+use mizan_evidence::{assess_evidence, EvidenceAssessment};
+use mizan_factors::{assess_factors, FactorAssessment};
+use mizan_model::{AuthorityDimension, MizanEvent, MizanInput, MizanResult, ReasonCode};
 use mizan_role::resolve_level;
 use mizan_routing::validate_route;
 use mizan_th::resolve_th;
 use serde::{Deserialize, Serialize};
 
 /// Final deterministic engine output. This is a structural/responsibility
-/// analysis result, not a divine or salvation judgment.
+/// analysis result, not a divine, salvation, or final moral judgment.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct MizanCalculation {
     pub resolved_event: MizanEvent,
@@ -17,7 +17,11 @@ pub struct MizanCalculation {
     pub authority_valid: bool,
     pub denied_authorities: Vec<AuthorityDimension>,
     pub structurally_valid: bool,
+    /// Backward-compatible indicator: at least one evidence reference exists.
     pub evidence_sufficient: bool,
+    pub evidence_assessment: EvidenceAssessment,
+    pub factor_assessment: FactorAssessment,
+    pub analytical_index_evidence_sufficient: bool,
     pub reason_codes: Vec<ReasonCode>,
     pub final_divine_judgment_computed: bool,
 }
@@ -38,8 +42,10 @@ pub fn evaluate(event: &MizanEvent) -> MizanResult {
     }
 }
 
-/// Canonical public pipeline: raw input -> resolved level -> resolved authority
-/// -> TH -> routing -> structural Mizan calculation.
+/// Canonical public pipeline:
+/// raw input -> role/level -> authority -> TH -> routing -> evidence/provenance
+/// -> analytical factor vector. ARI is analytical only and never a final
+/// moral/divine verdict.
 pub fn evaluate_input(input: &MizanInput) -> MizanCalculation {
     let role = resolve_level(input);
     let authority = resolve_authority(input);
@@ -61,25 +67,35 @@ pub fn evaluate_input(input: &MizanInput) -> MizanCalculation {
         passive_role: input.passive_role,
         trace_contribution: input.trace_contribution,
         evidence: input.evidence.clone(),
+        analytical_factors: input.analytical_factors.clone(),
     };
 
     let result = evaluate(&event);
     let th_value = result.th.numeric_value();
     let evidence_sufficient = !event.evidence.is_empty();
     let structurally_valid = authority.valid && result.routing.valid;
+    let evidence_assessment = assess_evidence(input);
+    let factor_assessment = assess_factors(&result.th, &input.analytical_factors);
+    let analytical_index_evidence_sufficient = factor_assessment.complete
+        && evidence_assessment.sufficient_for_analytical_index;
 
     let mut reason_codes = role.reason_codes;
     reason_codes.extend(authority.reason_codes);
     reason_codes.extend(result.reason_codes.clone());
-    reason_codes.push(ReasonCode(if evidence_sufficient {
-        "EVIDENCE_PRESENT".into()
-    } else {
-        "EVIDENCE_NOT_PROVIDED".into()
-    }));
+    reason_codes.extend(evidence_assessment.reason_codes.clone());
+    reason_codes.extend(factor_assessment.reason_codes.clone());
     if structurally_valid {
         reason_codes.push(ReasonCode("STRUCTURAL_VALIDATION_PASSED".into()));
     } else {
         reason_codes.push(ReasonCode("STRUCTURAL_VALIDATION_FAILED".into()));
+    }
+    if factor_assessment.analytical_responsibility_index.is_some()
+        && !analytical_index_evidence_sufficient
+    {
+        reason_codes.push(ReasonCode("ARI_PROVISIONAL_EVIDENCE_NOT_SUFFICIENT".into()));
+    }
+    if analytical_index_evidence_sufficient {
+        reason_codes.push(ReasonCode("ARI_EVIDENCE_SUFFICIENT".into()));
     }
 
     MizanCalculation {
@@ -90,6 +106,9 @@ pub fn evaluate_input(input: &MizanInput) -> MizanCalculation {
         denied_authorities: authority.denied,
         structurally_valid,
         evidence_sufficient,
+        evidence_assessment,
+        factor_assessment,
+        analytical_index_evidence_sufficient,
         reason_codes,
         final_divine_judgment_computed: false,
     }
@@ -99,9 +118,21 @@ pub fn evaluate_input(input: &MizanInput) -> MizanCalculation {
 mod tests {
     use super::*;
     use mizan_model::{
-        ActiveRole, ActivityType, AuthorityDimension, EvidenceRef, MandateSource, MissionType,
-        RelationshipDomain, RouteKind, StructuralLevel, ThClass,
+        ActiveRole, ActivityType, AnalyticalFactorsInput, AuthorityDimension,
+        CausalContributionLevel, ContextState, EvidenceKind, EvidenceRef, EvidenceReliability,
+        FactorEvidenceBindings, ImpactLevel, IntentState, MandateSource, MissionType,
+        ProvenanceStep, RelationshipDomain, RouteKind, ScopeLevel, StructuralLevel, ThClass,
     };
+
+    fn legacy_evidence(id: &str, source: &str) -> EvidenceRef {
+        EvidenceRef {
+            id: id.into(),
+            source: source.into(),
+            kind: EvidenceKind::Unknown,
+            reliability: EvidenceReliability::Unknown,
+            provenance: vec![],
+        }
+    }
 
     fn family_input() -> MizanInput {
         MizanInput {
@@ -119,7 +150,8 @@ mod tests {
             functional_responsibility_active: true,
             passive_role: false,
             trace_contribution: None,
-            evidence: vec![EvidenceRef { id: "Q19:44".into(), source: "Quran".into() }],
+            evidence: vec![legacy_evidence("Q19:44", "Quran")],
+            analytical_factors: AnalyticalFactorsInput::default(),
         }
     }
 
@@ -132,6 +164,7 @@ mod tests {
         assert!(result.result.routing.valid);
         assert!(result.authority_valid);
         assert!(result.structurally_valid);
+        assert!(result.factor_assessment.analytical_responsibility_index.is_none());
         assert!(!result.final_divine_judgment_computed);
     }
 
@@ -164,7 +197,8 @@ mod tests {
             functional_responsibility_active: false,
             passive_role: false,
             trace_contribution: None,
-            evidence: vec![EvidenceRef { id: "mandate-1".into(), source: "state".into() }],
+            evidence: vec![legacy_evidence("mandate-1", "state")],
+            analytical_factors: AnalyticalFactorsInput::default(),
         };
         let result = evaluate_input(&input);
         assert_eq!(result.resolved_event.level, StructuralLevel::L4);
@@ -190,12 +224,64 @@ mod tests {
             functional_responsibility_active: true,
             passive_role: false,
             trace_contribution: None,
-            evidence: vec![EvidenceRef { id: "shift-1".into(), source: "hospital".into() }],
+            evidence: vec![legacy_evidence("shift-1", "hospital")],
+            analytical_factors: AnalyticalFactorsInput::default(),
         };
         let result = evaluate_input(&input);
         assert_eq!(result.resolved_event.level, StructuralLevel::L5);
         assert_eq!(result.result.th, ThClass::SpecialMission33);
         assert_eq!(result.th_value, Some(33.0));
         assert!(result.structurally_valid);
+    }
+
+    #[test]
+    fn fully_bound_verified_factors_compute_evidence_supported_ari() {
+        let evidence = EvidenceRef {
+            id: "E1".into(),
+            source: "signed-record".into(),
+            kind: EvidenceKind::InstitutionalRecord,
+            reliability: EvidenceReliability::Verified,
+            provenance: vec![ProvenanceStep {
+                source: "source-system".into(),
+                method: "signed-export".into(),
+                reference: Some("sha256:abc".into()),
+            }],
+        };
+        let input = MizanInput {
+            actor_id: "doctor-ari".into(),
+            active_role: ActiveRole::Doctor,
+            relationship_domains: vec![RelationshipDomain::Professional],
+            activities: vec![ActivityType::Healing],
+            mission_types: vec![MissionType::Healing],
+            mandate_sources: vec![MandateSource::Professional],
+            requested_authority_dimensions: vec![AuthorityDimension::Medical],
+            route: RouteKind::ProfessionalService,
+            mandate_active: false,
+            emergency_state: false,
+            expert_knowledge_active: true,
+            functional_responsibility_active: true,
+            passive_role: false,
+            trace_contribution: None,
+            evidence: vec![evidence],
+            analytical_factors: AnalyticalFactorsInput {
+                intent: IntentState::Knowing,
+                impact: ImpactLevel::Moderate,
+                scope: ScopeLevel::Individual,
+                context: ContextState::ElevatedDuty,
+                causal_contribution: CausalContributionLevel::Direct,
+                evidence_bindings: FactorEvidenceBindings {
+                    intent: vec!["E1".into()],
+                    impact: vec!["E1".into()],
+                    scope: vec!["E1".into()],
+                    context: vec!["E1".into()],
+                    causal_contribution: vec!["E1".into()],
+                },
+            },
+        };
+        let result = evaluate_input(&input);
+        assert!(result.factor_assessment.analytical_responsibility_index.is_some());
+        assert!(result.analytical_index_evidence_sufficient);
+        assert!(!result.factor_assessment.final_moral_or_divine_verdict);
+        assert!(!result.final_divine_judgment_computed);
     }
 }
