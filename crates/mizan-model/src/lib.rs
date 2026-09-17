@@ -173,6 +173,36 @@ pub struct EvidenceRef {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ReasonCode(pub String);
 
+/// Raw event input. Structural level and effective authority are intentionally
+/// not trusted from callers; the engine resolves them from role + context.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct MizanInput {
+    pub actor_id: String,
+    pub active_role: ActiveRole,
+    pub relationship_domains: Vec<RelationshipDomain>,
+    pub activities: Vec<ActivityType>,
+    pub mission_types: Vec<MissionType>,
+    pub mandate_sources: Vec<MandateSource>,
+    #[serde(default)]
+    pub requested_authority_dimensions: Vec<AuthorityDimension>,
+    pub route: RouteKind,
+    #[serde(default)]
+    pub mandate_active: bool,
+    #[serde(default)]
+    pub emergency_state: bool,
+    #[serde(default)]
+    pub expert_knowledge_active: bool,
+    #[serde(default)]
+    pub functional_responsibility_active: bool,
+    #[serde(default)]
+    pub passive_role: bool,
+    pub trace_contribution: Option<f64>,
+    #[serde(default)]
+    pub evidence: Vec<EvidenceRef>,
+}
+
+/// Resolved event consumed by TH/routing. `level` and
+/// `authority_dimensions` are engine-derived fields.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct MizanEvent {
     pub actor_id: String,
