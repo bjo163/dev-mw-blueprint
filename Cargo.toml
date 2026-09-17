@@ -3,6 +3,8 @@ resolver = "2"
 members = [
   "crates/mizan-model",
   "crates/mizan-contract",
+  "crates/mizan-role",
+  "crates/mizan-authority",
   "crates/mizan-th",
   "crates/mizan-routing",
   "crates/mizan-engine",
