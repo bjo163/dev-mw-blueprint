@@ -1,13 +1,15 @@
 use axum::{body::{to_bytes, Body}, http::{header, Request, StatusCode}};
 use mizan_api::{app, AppState};
 use serde_json::Value;
+use sqlx::PgPool;
 use tower::ServiceExt;
+use uuid::Uuid;
 
 #[tokio::test]
 async fn evaluate_persists_to_postgres_when_database_url_is_configured() {
-    if std::env::var("DATABASE_URL").is_err() {
+    let Ok(database_url) = std::env::var("DATABASE_URL") else {
         return;
-    }
+    };
 
     let state = AppState::from_env().await.expect("postgres + migrations available");
     assert!(state.persistence_enabled());
@@ -46,7 +48,22 @@ async fn evaluate_persists_to_postgres_when_database_url_is_configured() {
     let bytes = to_bytes(response.into_body(), usize::MAX).await.unwrap();
     let value: Value = serde_json::from_slice(&bytes).unwrap();
     assert_eq!(value["persisted"], true);
-    assert!(value["record_id"].as_str().is_some());
     assert_eq!(value["calculation"]["resolved_event"]["level"], "L6");
     assert_eq!(value["calculation"]["th_value"], 5.0);
+
+    let record_id = Uuid::parse_str(value["record_id"].as_str().expect("record id string"))
+        .expect("valid record uuid");
+    let pool = PgPool::connect(&database_url).await.expect("connect for verification");
+    let persisted: i64 = sqlx::query_scalar("SELECT COUNT(*) FROM mizan_ledger WHERE record_id = $1")
+        .bind(record_id)
+        .fetch_one(&pool)
+        .await
+        .expect("ledger row query");
+    assert_eq!(persisted, 1);
+
+    let mutation = sqlx::query("UPDATE mizan_ledger SET actor_id = 'mutated' WHERE record_id = $1")
+        .bind(record_id)
+        .execute(&pool)
+        .await;
+    assert!(mutation.is_err(), "append-only trigger must reject UPDATE");
 }
