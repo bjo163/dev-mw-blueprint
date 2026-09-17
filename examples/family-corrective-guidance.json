@@ -1,0 +1,18 @@
+{
+  "actor_id": "example-child",
+  "level": "L6",
+  "active_role": "Human",
+  "relationship_domains": ["FamilyKinship"],
+  "activities": ["CorrectiveGuidance"],
+  "mission_types": ["Guidance"],
+  "mandate_sources": ["Personal"],
+  "authority_dimensions": ["Counsel"],
+  "route": "FamilyGuidance",
+  "mandate_active": false,
+  "emergency_state": false,
+  "expert_knowledge_active": false,
+  "functional_responsibility_active": true,
+  "passive_role": false,
+  "trace_contribution": null,
+  "evidence": []
+}
