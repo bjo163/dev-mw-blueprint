@@ -44,7 +44,10 @@ pub fn resolve_level(input: &MizanInput) -> RoleResolution {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use mizan_model::{ActiveRole, ActivityType, MandateSource, MissionType, RelationshipDomain};
+    use mizan_model::{
+        ActiveRole, ActivityType, AnalyticalFactorsInput, MandateSource, MissionType,
+        RelationshipDomain,
+    };
 
     fn input(role: ActiveRole, mandate_active: bool, route: RouteKind) -> MizanInput {
         MizanInput {
@@ -63,6 +66,7 @@ mod tests {
             passive_role: false,
             trace_contribution: None,
             evidence: vec![],
+            analytical_factors: AnalyticalFactorsInput::default(),
         }
     }
 
