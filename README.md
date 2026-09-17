@@ -70,33 +70,59 @@ TYPESCRIPT = optional API / UI / client adapters
              NOT a second independent rule authority
 ```
 
-Recommended Rust workspace:
+Implemented Rust workspace:
 
 ```text
 crates/
-  mizan-model/
-  mizan-contract/
-  mizan-th/
-  mizan-routing/
-  mizan-engine/
-  mizan-ledger/
-  mizan-cli/
+  mizan-model/        # typed ontology / event / result model
+  mizan-contract/     # JSON contract loader / baseline validation
+  mizan-th/           # deterministic TH resolver
+  mizan-routing/      # route + no-bypass + counsel-boundary validator
+  mizan-engine/       # orchestration
+  mizan-ledger/       # evidence/provenance result record
+  mizan-cli/          # JSON stdin/file CLI
 ```
 
 The core implementation keeps these dimensions distinct:
 
 ```text
-LEVEL    = structural position/domain
-DOMAIN   = relationship/context
-ACTIVITY = what is being done
-ROLE     = event-active function
-MISSION  = entrusted objective
-MANDATE  = source/scope of responsibility
+LEVEL     = structural position/domain
+DOMAIN    = relationship/context
+ACTIVITY  = what is being done
+ROLE      = event-active function
+MISSION   = entrusted objective
+MANDATE   = source/scope of responsibility
 AUTHORITY = permitted authority dimension
-TH       = event responsibility weight
+TH        = event responsibility weight
 ```
 
 `CORRECTIVE_GUIDANCE` is an **activity**, not a structural level.
+
+---
+
+## Fast-Track Rust Usage
+
+Run the workspace tests:
+
+```bash
+cargo test --workspace --all-targets
+```
+
+Evaluate the included family/corrective-guidance event:
+
+```bash
+cargo run -p mizan-cli -- examples/family-corrective-guidance.json
+```
+
+Or pipe a `MizanEvent` JSON object through stdin:
+
+```bash
+cat examples/family-corrective-guidance.json | cargo run -p mizan-cli
+```
+
+The example should preserve `L6` as the structural level, treat `CorrectiveGuidance` as an activity, resolve the functional/social responsibility weight, and validate the family counsel route without granting administrative authority.
+
+A GitHub Actions workflow is present at `.github/workflows/rust-ci.yml` and is configured to execute workspace tests on pushes to `main` and pull requests.
 
 ---
 
@@ -152,4 +178,5 @@ Family seniority is not absolute authority, and counsel does not transfer admini
 **Ontology:** v1.1 conceptual baseline  
 **Governance/TH contract:** v1.1 extension over v1.0  
 **Canonical engine:** Rust  
+**Rust scaffold:** fast-track core implemented  
 **Branch:** `main`
