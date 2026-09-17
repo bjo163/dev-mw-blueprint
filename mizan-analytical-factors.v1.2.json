@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.2.0",
+  "name": "MoonWitness Mizan Evidence Provenance and Analytical Responsibility Extension",
+  "extends": "mizan-governance-th.v1.1.json",
+  "status": "baseline-extension",
+  "evidence_model": {
+    "evidence_kinds": [
+      "Observation",
+      "Document",
+      "Testimony",
+      "Instrument",
+      "Corpus",
+      "InstitutionalRecord",
+      "DigitalRecord",
+      "Unknown"
+    ],
+    "reliability": ["Low", "Medium", "High", "Verified", "Unknown"],
+    "provenance_fields": ["source", "method", "reference"],
+    "factor_binding_required_for_supported_ari": true,
+    "missing_reference_invalidates_supported_ari": true
+  },
+  "analytical_factors": {
+    "intent": ["Accidental", "Negligent", "Knowing", "Deliberate", "Unknown"],
+    "impact": ["None", "Low", "Moderate", "High", "Severe", "Unknown"],
+    "scope": [
+      "Individual",
+      "Household",
+      "Local",
+      "Institutional",
+      "Regional",
+      "National",
+      "Transnational",
+      "Unknown"
+    ],
+    "context": ["Constrained", "Normal", "ElevatedDuty", "Emergency", "Unknown"],
+    "causal_contribution": ["Trace", "Minor", "Material", "Major", "Direct", "Unknown"]
+  },
+  "ari_calibration": {
+    "id": "ARI-0.1.0",
+    "label": "Analytical Responsibility Index",
+    "range": [0, 100],
+    "weights": {
+      "th_normalized": 0.30,
+      "intent": 0.20,
+      "impact": 0.20,
+      "scope": 0.10,
+      "causal_contribution": 0.20
+    },
+    "context_multiplier": {
+      "Constrained": 0.65,
+      "Normal": 1.00,
+      "ElevatedDuty": 1.10,
+      "Emergency": 1.05
+    },
+    "requirements": {
+      "all_five_analytical_factors_known": true,
+      "th_known": true,
+      "evidence_supported_status_requires_all_factor_bindings": true,
+      "minimum_average_evidence_reliability": 0.60
+    },
+    "meaning": "A versioned analytical responsibility index for comparing event responsibility factors inside MoonWitness. It is not a moral worth score, salvation score, holiness score, legal verdict, or final divine judgment."
+  },
+  "invariants_add": [
+    {
+      "id": "INV-ARI-001",
+      "rule": "TH remains a separate structural responsibility weight and must not be replaced by ARI"
+    },
+    {
+      "id": "INV-ARI-002",
+      "rule": "ARI is analytical and must never be presented as final moral or divine judgment"
+    },
+    {
+      "id": "INV-ARI-003",
+      "rule": "Unknown analytical factors prevent ARI calculation rather than being silently guessed"
+    },
+    {
+      "id": "INV-ARI-004",
+      "rule": "An ARI may be calculated but must be marked provisional when evidence bindings are insufficient"
+    },
+    {
+      "id": "INV-EV-001",
+      "rule": "Every factor evidence binding must resolve to an existing evidence id"
+    },
+    {
+      "id": "INV-EV-002",
+      "rule": "Evidence strength and provenance completeness are reported separately"
+    },
+    {
+      "id": "INV-EV-003",
+      "rule": "Absence of evidence must remain explicit and must not be converted into fabricated certainty"
+    }
+  ]
+}
