@@ -1,6 +1,6 @@
 # DEV-MW-BLUEPRINT
 
-MoonWitness conceptual and machine-readable blueprints.
+MoonWitness conceptual, machine-readable, and executable Mizan blueprints.
 
 ## Core Documents
 
@@ -14,119 +14,82 @@ Research foundation for the Monocentric `1 · 6 · 3` architecture, HIZAB, MIZAN
 
 `MIZAN-GOVERNANCE-TH-BLUEPRINT.md`
 
-Operational ontology for:
+Operational ontology for L0–L6, active role vs stable identity, Mission #1 / Mission #2 / civil mandate, governance routing, mandate sources, mission types, authority dimensions, dynamic TH responsibility weights, no-bypass rules, and Mizan event vectors.
 
-- L0–L6 structural domains
-- active role vs stable identity
-- Mission #1 / Mission #2 / civil mandate
-- governance routing
-- `MANDATE_SOURCE`
-- `MISSION_TYPE`
-- authority dimensions
-- dynamic TH responsibility weights
-- no-bypass rules
-- Mizan event vector
-- invariants
+### 3. Machine-Readable Contracts
 
-### 3. Machine-Readable Contract
+- `mizan-governance-th.v1.json` — canonical base contract
+- `mizan-governance-th.v1.1.json` — FAMILY/KINSHIP + NASIHAH/CORRECTIVE extension
+- `mizan-governance-th.fixtures.v1.json` — governance/TH baseline fixtures
+- `mizan-governance-th.fixtures.v1.1.json` — family/nasihah extension fixtures
+- `mizan-engine.fixtures.v1.json` — executable full-pipeline fixtures
 
-`mizan-governance-th.v1.json`
+The Rust contract test validates both the v1 base contract and the v1.1 extension contract.
 
-Canonical v1 contract for future API, DB, validator, and test implementations.
-
-### 4. FAMILY / KINSHIP + NASIHAH Extension
+### 4. FAMILY / KINSHIP + NASIHAH
 
 `MIZAN-FAMILY-NASIHAH-DOMAIN.md`
 
-Adds two dimensions that were missing from the first governance baseline:
+Adds:
 
-- `FAMILY_KINSHIP` — relationship domain
-- `NASIHAH_CORRECTIVE_GUIDANCE` — cross-level activity domain
-- `COUNSEL_AUTHORITY` — advice/correction authority that does not imply administrative or enforcement power
-- family, guardianship, warning, reminder, counsel, and corrective-guidance event fields
-- upward / downward / lateral counsel routing
+- `FAMILY_KINSHIP` as a relationship domain
+- `NASIHAH_CORRECTIVE_GUIDANCE` / `CorrectiveGuidance` as a cross-level activity
+- `COUNSEL_AUTHORITY` / `Counsel` without implicit administrative or enforcement power
+- upward, downward, and lateral counsel routing
 
-Machine-readable extension:
-
-`mizan-governance-th.v1.1.json`
-
-Additional fixtures:
-
-`mizan-governance-th.fixtures.v1.1.json`
+`CORRECTIVE_GUIDANCE` is an **activity**, never a structural level.
 
 ### 5. Implementation Decision — Rust
 
 `ADR-001-MIZAN-ENGINE-RUST.md`
 
-The canonical executable Mizan core is implemented in **Rust**.
+Canonical executable rules live in Rust. JSON remains the contract/fixture format; Markdown remains the research/specification format. TypeScript may be an adapter/UI layer later, but it must not become a second independent rule authority.
 
-Technology boundary:
-
-```text
-RUST       = canonical deterministic Mizan engine
-JSON       = machine-readable contracts / fixtures
-MARKDOWN   = research + human-readable specification
-TYPESCRIPT = optional API / UI / client adapters
-             NOT a second independent rule authority
-```
-
-Implemented Rust workspace:
+## Executable Rust Workspace
 
 ```text
 crates/
-  mizan-model/        # typed ontology / event / result model
-  mizan-contract/     # JSON contract loader / baseline validation
+  mizan-model/        # typed raw input, resolved event, result model
+  mizan-contract/     # base + extension contract validation
+  mizan-role/         # active role -> contextual structural level
+  mizan-authority/    # role/context -> effective authority + boundary checks
   mizan-th/           # deterministic TH resolver
   mizan-routing/      # route + no-bypass + counsel-boundary validator
-  mizan-engine/       # orchestration
+  mizan-engine/       # full orchestration / Mizan calculation
   mizan-ledger/       # evidence/provenance result record
-  mizan-cli/          # JSON stdin/file CLI
+  mizan-cli/          # raw JSON MizanInput CLI
 ```
 
-The core implementation keeps these dimensions distinct:
+The public execution flow is now:
 
 ```text
-LEVEL     = structural position/domain
-DOMAIN    = relationship/context
-ACTIVITY  = what is being done
-ROLE      = event-active function
-MISSION   = entrusted objective
-MANDATE   = source/scope of responsibility
-AUTHORITY = permitted authority dimension
-TH        = event responsibility weight
+MizanInput
+   ↓
+ROLE / LEVEL RESOLVER
+   ↓
+AUTHORITY RESOLVER
+   ↓
+RESOLVED MizanEvent
+   ↓
+TH RESOLVER
+   ↓
+ROUTING / NO-BYPASS VALIDATOR
+   ↓
+MizanCalculation
+   ├─ resolved_event
+   ├─ TH class
+   ├─ numeric th_value
+   ├─ authority_valid
+   ├─ denied_authorities
+   ├─ routing decision
+   ├─ structurally_valid
+   ├─ evidence_sufficient
+   └─ final_divine_judgment_computed = false
 ```
 
-`CORRECTIVE_GUIDANCE` is an **activity**, not a structural level.
+Callers do **not** supply a trusted structural level or trusted effective authority. The engine resolves them from the event role, mission, mandate, activity, and context.
 
----
-
-## Fast-Track Rust Usage
-
-Run the workspace tests:
-
-```bash
-cargo test --workspace --all-targets
-```
-
-Evaluate the included family/corrective-guidance event:
-
-```bash
-cargo run -p mizan-cli -- examples/family-corrective-guidance.json
-```
-
-Or pipe a `MizanEvent` JSON object through stdin:
-
-```bash
-cat examples/family-corrective-guidance.json | cargo run -p mizan-cli
-```
-
-The example should preserve `L6` as the structural level, treat `CorrectiveGuidance` as an activity, resolve the functional/social responsibility weight, and validate the family counsel route without granting administrative authority.
-
-A GitHub Actions workflow is present at `.github/workflows/rust-ci.yml` and is configured to execute workspace tests on pushes to `main` and pull requests.
-
----
-
-## Fundamental Rule
+## Fundamental Rules
 
 ```text
 LEVEL ≠ WEIGHT
@@ -138,7 +101,7 @@ CORRECTIVE ≠ LEVEL
 COUNSEL_AUTHORITY ≠ ADMIN_AUTHORITY
 ```
 
-TH is an **event responsibility weight**, not human worth or divine status.
+TH is an event responsibility weight, not human worth, holiness, salvation status, or divine favor.
 
 ```text
 TH33   SPECIAL MISSION / HIGH MANDATE
@@ -147,6 +110,16 @@ TH5    FUNCTIONAL / SOCIAL RESPONSIBILITY
 TH2.5  GENERAL HUMAN BASELINE
 TH1    PASSIVE / MINOR ROLE
 TH0.x  TRACE / INDIRECT CONTRIBUTION
+```
+
+Examples:
+
+```text
+Police off-duty general event  -> resolved L6 / TH2.5
+Police active lawful mandate   -> resolved L4 / TH33
+Doctor normal practice         -> L5 / TH17
+Doctor emergency               -> L5 / TH33
+Human family corrective advice -> L6 / TH5 / Counsel only
 ```
 
 ## Core Routing
@@ -169,14 +142,52 @@ CROSS-LEVEL COUNSEL
 RELEVANT KNOWLEDGE/EVIDENCE -> COUNSEL -> HIGHER/LOWER/PEER ROLE
 ```
 
-Direct guidance is not the same thing as direct civil administrative execution.
+Direct guidance is not the same thing as direct civil administrative execution. Family seniority is not absolute authority, and counsel does not transfer administrative or enforcement power.
 
-Family seniority is not absolute authority, and counsel does not transfer administrative power.
+## Run
+
+Run all tests:
+
+```bash
+cargo test --workspace --all-targets
+```
+
+Evaluate a raw input:
+
+```bash
+cargo run -p mizan-cli -- examples/family-corrective-guidance.json
+```
+
+Or:
+
+```bash
+cat examples/family-corrective-guidance.json | cargo run -p mizan-cli
+```
+
+The CLI returns a complete `MizanCalculation` and exits non-zero when structural/authority routing validation fails.
+
+## Automated Coverage
+
+`mizan-engine.fixtures.v1.json` currently exercises the full pipeline for:
+
+- Rasul guidance mission
+- Ulama knowledge role
+- Ulama Mission #2 active
+- Police off duty
+- Police on duty
+- Doctor normal practice
+- Doctor emergency response
+- family corrective guidance
+- Judge active adjudication
+- rejected human admin-authority claim
+- Advocate active legal representation
+
+GitHub Actions at `.github/workflows/rust-ci.yml` runs `cargo test --workspace --all-targets` on pushes to `main` and pull requests.
 
 ## Current Baseline
 
 **Ontology:** v1.1 conceptual baseline  
-**Governance/TH contract:** v1.1 extension over v1.0  
+**Governance/TH contract:** v1 base + v1.1 extension  
+**Executable pipeline:** role + authority + TH + routing + fixture-driven calculation  
 **Canonical engine:** Rust  
-**Rust scaffold:** fast-track core implemented  
 **Branch:** `main`
