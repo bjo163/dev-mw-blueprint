@@ -1,6 +1,10 @@
-use mizan_engine::evaluate;
-use mizan_model::MizanEvent;
-use std::{env, fs, io::{self, Read}, process};
+use mizan_engine::evaluate_input;
+use mizan_model::MizanInput;
+use std::{
+    env, fs,
+    io::{self, Read},
+    process,
+};
 
 fn main() {
     let input = match env::args().nth(1) {
@@ -18,16 +22,20 @@ fn main() {
         }
     };
 
-    let event: MizanEvent = serde_json::from_str(&input).unwrap_or_else(|err| {
-        eprintln!("invalid MizanEvent JSON: {err}");
+    let event: MizanInput = serde_json::from_str(&input).unwrap_or_else(|err| {
+        eprintln!("invalid MizanInput JSON: {err}");
         process::exit(2);
     });
 
-    let result = evaluate(&event);
+    let result = evaluate_input(&event);
     let output = serde_json::to_string_pretty(&result).unwrap_or_else(|err| {
         eprintln!("failed to serialize result: {err}");
         process::exit(2);
     });
 
     println!("{output}");
+
+    if !result.structurally_valid {
+        process::exit(1);
+    }
 }
