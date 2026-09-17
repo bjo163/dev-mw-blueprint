@@ -83,7 +83,8 @@ fn validate_counsel(event: &MizanEvent) -> RoutingDecision {
 mod tests {
     use super::*;
     use mizan_model::{
-        ActiveRole, MandateSource, MissionType, RelationshipDomain, StructuralLevel,
+        ActiveRole, AnalyticalFactorsInput, MandateSource, MissionType, RelationshipDomain,
+        StructuralLevel,
     };
 
     fn counsel_event() -> MizanEvent {
@@ -104,6 +105,7 @@ mod tests {
             passive_role: false,
             trace_contribution: None,
             evidence: vec![],
+            analytical_factors: AnalyticalFactorsInput::default(),
         }
     }
 
